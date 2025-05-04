@@ -6,7 +6,6 @@ const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
 const app = express()
 const staticRoutes = require("./routes/static")
-const baseController = require("./controllers/baseController")
 
 /* ***********************
  * View Engine and Templates
@@ -21,7 +20,9 @@ app.set("layout", "./layouts/layout") // not at views root
 app.use(staticRoutes)
 
 // Index route
-app.get("/", baseController.buildHome)
+app.get("/", function (req, res) {
+  res.render("index", { title: "Home" })
+})
 
 /* ***********************
  * Local Server Information
@@ -34,5 +35,5 @@ const host = process.env.HOST
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on http://${host}:${port}`) // I made a slight change to make the link clickable!! :)
+  console.log(`app listening on http://${host}:${port}`) // I made the link clickable!! :)
 })

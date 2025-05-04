@@ -279,3 +279,62 @@ footer {
   font-size: 0.9rem;
   color: #666;
 }
+
+
+@media (min-width: 768px) {
+
+  #wrapper {
+    margin: 2em auto;
+    padding: 2em;
+  }
+
+  /* --- Navigation (Horizontal) --- */
+  nav ul {
+    display: flex;
+    justify-content: flex-start;
+    text-align: left;
+  }
+
+  nav ul li {
+    border-bottom: none;
+    border-right: 1px solid #495057;
+  }
+
+  nav ul li:last-child {
+    border-right: none;
+  }
+
+  nav ul li a {
+    padding: 0.75em 1.5em;
+  }
+
+
+  .info-section {
+    display: flex;
+    gap: 2em;
+  }
+
+  #info-left {
+    flex: 1;
+    margin-bottom: 0;
+    /* Remove bottom margin when side-by-side */
+  }
+
+  #info-right {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  /* Increasing font sizes slightly when smaller width */
+  body {
+    font-size: 17px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+}
