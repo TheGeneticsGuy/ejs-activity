@@ -154,6 +154,7 @@ h1 {
 #hero-image-section {
   position: relative;
   margin-bottom: 2em;
+  overflow: hidden;
 }
 
 .hero img {
@@ -164,21 +165,22 @@ h1 {
 
 .hero-overlay {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: rgba(76, 150, 215, 0.7);
-  /* Semi-transparent blue background */
-  padding: 1em;
+  top: 5%;
+  left: 5%;
+  background-color: rgba(76, 150, 215, 0.75);
+  padding: 1.5%;
   border-radius: 5px;
   color: #fff;
-  max-width: 250px;
+  width: clamp(160px, 25%, 300px);
+  /* I don't want the overlay to float */
+  transition: width 0.1s ease-in-out, top 0.1s ease-in-out, left 0.1s ease-in-out;
 }
 
 .hero-overlay h2 {
   margin: 0 0 0.5em 0;
   color: #fff;
-  font-size: 1.4rem;
   font-family: 'Lato', sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.6rem);
 }
 
 .hero-overlay ul {
@@ -189,7 +191,7 @@ h1 {
 
 .hero-overlay li {
   margin-bottom: 0.3em;
-  font-size: 1rem;
+  font-size: clamp(0.8rem, 1.8vw, 1.1rem);
 }
 
 .cta-button {
@@ -200,8 +202,8 @@ h1 {
   border-radius: 4px;
   font-weight: bold;
   text-decoration: none;
-  font-size: 1.1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
 }
 
 .cta-button:hover {
@@ -291,17 +293,12 @@ footer {
   /* --- Navigation (Horizontal) --- */
   nav ul {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-evenly;
     text-align: left;
   }
 
   nav ul li {
     border-bottom: none;
-    border-right: 1px solid #495057;
-  }
-
-  nav ul li:last-child {
-    border-right: none;
   }
 
   nav ul li a {
