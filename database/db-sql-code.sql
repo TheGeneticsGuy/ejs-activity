@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS public.inventory (
     inv_image character varying NOT NULL,
     inv_thumbnail character varying NOT NULL,
     inv_price numeric(9, 0) NOT NULL,
-    inv_miles integer NOT NULL,
+    z inv_miles integer NOT NULL,
     inv_color character varying NOT NULL,
     classification_id integer NOT NULL,
     CONSTRAINT inventory_pkey PRIMARY KEY (inv_id)
