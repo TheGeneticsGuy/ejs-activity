@@ -1,17 +1,3 @@
 <nav>
-        <ul>
-                <!-- Adding this nuance so that I can track which page I am on currently - This was SOOO much easier not in EJS -->
-                <li class="<%= (locals.currentPage === 'home') ? 'active' : '' %>"><a href="/"
-                                title="Go to home page">Home</a>
-                </li>
-                <li class="<%= (locals.currentPage === 'custom') ? 'active' : '' %>"><a href="/custom"
-                                title="Go to Custom page">Custom</a></li>
-                <li class="<%= (locals.currentPage === 'sedan') ? 'active' : '' %>"><a href="/sedan"
-                                title="Go to Sedan page">Sedan</a></li>
-                <li class="<%= (locals.currentPage === 'suv') ? 'active' : '' %>"><a href="/suv"
-                                title="Go to SUV page">SUV</a>
-                </li>
-                <li class="<%= (locals.currentPage === 'truck') ? 'active' : '' %>"><a href="/truck"
-                                title="Go to Truck page">Truck</a></li>
-        </ul>
+        <%- nav %>
 </nav>
