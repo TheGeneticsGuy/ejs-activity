@@ -1,0 +1,9 @@
+<!-- Uses an EJS code block to contain a JS if structure to determine if a "title exists" -->
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+
+        <%# messages() %>
+            <%- grid %>
