@@ -8,6 +8,7 @@ const app = express()
 const staticRoutes = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const baseController = require("./controllers/baseController")
+const utilities = require("./utilities");
 
 /* ***********************
  * View Engine and Templates
@@ -24,6 +25,26 @@ app.use(staticRoutes)
 // Index route
 app.get("/", baseController.buildHome);
 app.use("/inv", inventoryRoute)
+
+// 404 Handler
+app.use(async (req, res, next) => {
+  const err = new Error('Sorry, we appear to have lost that page.');
+  err.status = 404;
+  next(err);
+})
+
+/* ***********************
+* Express Error Handler
+*************************/
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message: err.message,
+    nav
+  })
+})
 
 /* ***********************
  * Local Server Information
