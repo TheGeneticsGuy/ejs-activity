@@ -65,10 +65,11 @@ Util.buildInventoryDetailView = async function (itemData) {
     }
 
     // Formatting price and mileage
-    const price = typeof itemData.inv_price === 'number' ? itemData.inv_price : 0;
+
+    const price = parseFloat(itemData.inv_price);
     const miles = typeof itemData.inv_miles === 'number' ? itemData.inv_miles : 0;
 
-    const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+    const formattedPrice = new Intl.NumberFormat('en-US').format(price);
     const formattedMileage = new Intl.NumberFormat('en-US').format(miles);
 
     // And other fields like inv_make, inv_model, inv_year, inv_color, inv_description exist.
@@ -80,7 +81,7 @@ Util.buildInventoryDetailView = async function (itemData) {
             <div class="vehicle-info-section">
                 <h1>${itemData.inv_make} ${itemData.inv_model}</h1>
                 <p class="vehicle-year"><strong>Year:</strong> ${itemData.inv_year}</p>
-                <p class="vehicle-price"><strong>Price:</strong> ${formattedPrice}</p>
+                <p class="vehicle-price"><strong>Price:</strong> $${formattedPrice}</p>
                 <p class="vehicle-description"><strong>Description:</strong> ${itemData.inv_description}</p>
                 <hr>
                 <p class="vehicle-mileage"><strong>Mileage:</strong> ${formattedMileage} miles</p>
