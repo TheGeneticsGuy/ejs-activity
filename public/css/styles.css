@@ -282,6 +282,25 @@ footer {
   color: #666;
 }
 
+.errorLink {
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.errorLink a {
+  color: black;
+  text-decoration: none;
+}
+
+.errorLink a:visited {
+  color: black;
+}
+
+.errorLink a:hover {
+  text-decoration: underline;
+  color: red;
+}
+
 /* --- (Classification View) --- */
 #inv-display {
   display: grid;
@@ -345,7 +364,7 @@ footer {
 #inv-display .namePrice span {
   font-size: 1.1rem;
   font-weight: bold;
-  color: #28a745;
+  color: #065318;
   margin-top: 0.5em;
 }
 
