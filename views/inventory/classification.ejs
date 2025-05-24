@@ -3,7 +3,10 @@
     <h1>
         <%= title %>
     </h1>
-    <% } else { res.redirect('/') } %>
+    <% } %>
 
         <%# messages() %>
             <%- grid %>
+
+                <!-- Note - I removed the default else statement provided by lesson since it was redundant and unnecessary
+        and it also would be called AFTER res.render() which I am sure could cause problems -->

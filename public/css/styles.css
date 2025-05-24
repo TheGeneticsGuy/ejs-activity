@@ -282,6 +282,88 @@ footer {
   color: #666;
 }
 
+/* --- (Classification View) --- */
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5em;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1em;
+}
+
+#inv-display li {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  /* Keeps image corners rounded if image is first child */
+  display: flex;
+  flex-direction: column;
+}
+
+#inv-display li a img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+#inv-display .namePrice {
+  padding: 1em;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#inv-display .namePrice hr {
+  display: none;
+}
+
+#inv-display .namePrice h2 {
+  margin: 0.5em 0;
+  font-size: 1.2rem;
+}
+
+#inv-display .namePrice h2 a {
+  color: #0b4f6c;
+  text-decoration: none;
+}
+
+#inv-display .namePrice h2 a:hover {
+  text-decoration: underline;
+  color: #017bff;
+}
+
+#inv-display .namePrice span {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #28a745;
+  margin-top: 0.5em;
+}
+
+/* Styling for the "no vehicles found" message */
+.notice {
+  text-align: center;
+  padding: 2em;
+  font-size: 1.2em;
+  color: #777;
+  grid-column: 1 / -1;
+}
+
+
+@media (max-width: 600px) {
+  #inv-display {
+    grid-template-columns: 1fr;
+    /* Single column on mobile or smaller screens */
+
+  }
+}
 
 @media (min-width: 768px) {
 
