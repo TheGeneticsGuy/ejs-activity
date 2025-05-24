@@ -290,6 +290,7 @@ footer {
   list-style-type: none;
   padding: 0;
   margin-top: 1em;
+  justify-items: center;
 }
 
 #inv-display li {
@@ -298,9 +299,10 @@ footer {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  /* Keeps image corners rounded if image is first child */
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 500px;
 }
 
 #inv-display li a img {

@@ -1,4 +1,4 @@
-## CSE 340 - CSE Motors Project
+## CSE 340 - CSE Motors Projectn
 
 [Click here for LIVE Render Deployment ](https://ejs-activity-cse340.onrender.com/)
 
