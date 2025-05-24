@@ -33,15 +33,14 @@ invCont.buildByInventoryId = async function (req, res, next) {
         return next(err); // This is so the global error handler in server.js can handle it for my 404 page we made
     }
 
-    const detailViewHtml = await utilities.buildInventoryDetailView(itemData); // You'll create this utility function
+    const detailViewHtml = await utilities.buildInventoryDetailView(itemData);
     let nav = await utilities.getNav();
     const vehicleName = `${itemData.inv_make} ${itemData.inv_model}`;
 
-    res.render("./inventory/detail", { // You'll create this EJS template
-        title: vehicleName, // For the <title> tag and potentially an <h1> in layout
+    res.render("./inventory/detail", {
+        title: vehicleName,
         nav,
-        detailContent: detailViewHtml, // The main HTML content for the detail view
-        errors: null,
+        detailContent: detailViewHtml,
     });
 }
 

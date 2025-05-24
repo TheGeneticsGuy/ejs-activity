@@ -39,7 +39,6 @@ Util.buildClassificationGrid = async function (data) {
                 + '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model
                 + ' on CSE Motors" /></a>'
             grid += '<div class="namePrice">'
-            // grid += '<hr />'
             grid += '<h2>'
             grid += '<a href="../../inv/detail/' + vehicle.inv_id + '" title="View '
                 + vehicle.inv_make + ' ' + vehicle.inv_model + ' details">'
@@ -55,6 +54,44 @@ Util.buildClassificationGrid = async function (data) {
         grid += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
     }
     return grid
+}
+
+/* **************************************
+* Build the inventory item detail view HTML
+* ************************************ */
+Util.buildInventoryDetailView = async function (itemData) {
+    if (!itemData) {
+        return '<p class="notice">Sorry, details for this vehicle could not be found.</p>';
+    }
+
+    // Formatting price and mileage
+    const price = typeof itemData.inv_price === 'number' ? itemData.inv_price : 0;
+    const miles = typeof itemData.inv_miles === 'number' ? itemData.inv_miles : 0;
+
+    const formattedPrice = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+    const formattedMileage = new Intl.NumberFormat('en-US').format(miles);
+
+    // And other fields like inv_make, inv_model, inv_year, inv_color, inv_description exist.
+    let html = `
+        <div id="vehicle-detail-container">
+            <div class="vehicle-image-section">
+                <img src="${itemData.inv_image}" alt="Image of ${itemData.inv_make} ${itemData.inv_model}">
+            </div>
+            <div class="vehicle-info-section">
+                <h1>${itemData.inv_make} ${itemData.inv_model}</h1>
+                <p class="vehicle-year"><strong>Year:</strong> ${itemData.inv_year}</p>
+                <p class="vehicle-price"><strong>Price:</strong> ${formattedPrice}</p>
+                <p class="vehicle-description"><strong>Description:</strong> ${itemData.inv_description}</p>
+                <hr>
+                <p class="vehicle-mileage"><strong>Mileage:</strong> ${formattedMileage} miles</p>
+                <p class="vehicle-color"><strong>Color:</strong> ${itemData.inv_color}</p>
+                <!-- Add other details as needed, e.g.: -->
+                <!-- <p><strong>Engine:</strong> ${itemData.inv_engine || 'N/A'}</p> -->
+                <!-- <p><strong>Transmission:</strong> ${itemData.inv_transmission || 'N/A'}</p> -->
+            </div>
+        </div>
+    `;
+    return html;
 }
 
 /* ****************************************
