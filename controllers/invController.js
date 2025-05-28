@@ -27,12 +27,6 @@ invCont.buildByInventoryId = async function (req, res, next) {
     const inventory_id = req.params.inventoryId;
     const itemData = await invModel.getInventoryByInventoryId(inventory_id);
 
-    if (!itemData) {
-        const err = new Error("Vehicle not found.");
-        err.status = 404;
-        return next(err); // This is so the global error handler in server.js can handle it for my 404 page we made
-    }
-
     const detailViewHtml = await utilities.buildInventoryDetailView(itemData);
     let nav = await utilities.getNav();
     const vehicleName = `${itemData.inv_make} ${itemData.inv_model}`;
