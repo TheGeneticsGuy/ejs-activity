@@ -5,3 +5,5 @@ const utilities = require("../utilities/");
 
 // Making a Details page
 router.get("/account/login", utilities.handleErrors(accController.buildLogin));
+
+module.exports = router;

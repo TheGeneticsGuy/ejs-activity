@@ -517,3 +517,153 @@ footer {
   }
 
 }
+
+/*
+ -- LOGIN or REGISTER VIEW --
+*/
+
+.login-heading {
+    text-align: center;
+    /* color: #0b4f6c; /* Default h1 color */ /* You might want to override for this page if needed */
+    margin-bottom: 1em;
+}
+
+.login-container {
+    max-width: 450px;
+    margin: 2em auto;
+    padding: 2em 2.5em;
+    background-color: #34495e;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    color: #ecf0f1;
+}
+
+.login-container h1,
+.login-heading {
+    color: #ffffff;
+}
+
+#loginForm fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+#loginForm legend.visually-hidden { /* THIS was styling added for accessiblity WAVE approval*/
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px; width: 1px;
+    margin: -1px; padding: 0; border: 0;
+}
+
+#loginForm div {
+    margin-bottom: 1.5em;
+}
+
+#loginForm label {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: bold;
+    color: #ecf0f1;
+}
+
+#loginForm input[type="email"],
+#loginForm input[type="password"] {
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 1px solid #7f8c8d;
+    border-radius: 6px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    color: #2c3e50;
+    font-size: 1rem;
+    outline-color: #4BD6CB;
+}
+
+.password-requirements {
+    display: block;
+    font-size: 0.8rem;
+    color: #bdc3c7;
+    margin-top: 0.5em;
+    line-height: 1.4;
+}
+
+.login-button {
+    display: block;
+    width: 100%;
+    padding: 0.9em;
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin-top: 1em;
+}
+
+.login-button:hover {
+    background-color: #dadedf;
+}
+.login-button:active {
+    transform: translateY(1px);
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 2em;
+    font-size: 1rem;
+    color: #ecf0f1;
+}
+
+.signup-link a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.signup-link a:hover {
+    color: #4BD6CB;
+    text-decoration: none;
+}
+
+/* EXPRESS MESSAGES - they get filtered as ul.messages */
+ul.messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto 1.5em auto;
+    max-width: 450px;
+}
+
+ul.messages li {
+    padding: 0.8em 1.2em;
+    margin-bottom: 0.75em;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}
+
+ul.messages li.error,
+ul.messages li.alert-error {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: 1px solid #c0392b;
+}
+
+ul.messages li.success,
+ul.messages li.alert-success {
+    background-color: #2ecc71;
+    color: #ffffff;
+    border: 1px solid #27ae60;
+}
+
+ul.messages li.notice,
+ul.messages li.info,
+ul.messages li.alert-info {
+    background-color: #3498db;
+    color: #ffffff;
+    border: 1px solid #2980b9;
+}

@@ -1,0 +1,29 @@
+<h1 class="login-heading"><%- title %></h1>
+
+<%- messages() %>
+
+<div class="login-container">
+    <form id="loginForm" action="/account/login" method="POST">
+        <fieldset>
+            <legend class="visually-hidden">User Login</legend> <%# Added For accessibility %>
+
+            <div>
+                <label for="account_email">Email:</label>
+                <input type="email" id="account_email" name="account_email" required
+                       value="<%= locals.account_email || '' %>"> <%# Retain value on error if passed back %>
+            </div>
+
+            <div>
+                <label for="account_password">Password:</label>
+                <input type="password" id="account_password" name="account_password" required
+                        <%# P/W requirement pattern pulled from SO %>
+                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{8,}$"
+                       title="Password must be at least 8 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
+                <span class="password-requirements">Passwords must be at least 8 characters and include at least 1 capital letter, 1 number, and 1 special character. Spaces are not allowed.</span>
+            </div>
+
+            <button type="submit" class="login-button">Login</button>
+        </fieldset>
+    </form>
+    <p class="signup-link">No account? <a href="/account/register">Sign-up</a></p>
+</div>
