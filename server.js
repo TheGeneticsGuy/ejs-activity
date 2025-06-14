@@ -49,6 +49,7 @@ app.use(staticRoutes)
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.get("/account", utilities.handleErrors(accountRoute));
 app.use("/inv", inventoryRoute);
+app.use("/account", accountRoute);
 
 // 500 handler for testing
 app.get("/trigger-server-error", (req, res, next) => {
