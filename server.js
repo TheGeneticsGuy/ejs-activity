@@ -7,8 +7,31 @@ const env = require("dotenv").config()
 const app = express()
 const staticRoutes = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
+const accountRoute = require("./routes/accountRoute")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities");
+const session = require("express-session")
+const pool = require('./database/')
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+app.use(require('connect-flash')())
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 /* ***********************
  * View Engine and Templates
@@ -24,7 +47,8 @@ app.use(staticRoutes)
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
-app.use("/inv", inventoryRoute)
+app.get("/account", utilities.handleErrors(accountRoute));
+app.use("/inv", inventoryRoute);
 
 // 500 handler for testing
 app.get("/trigger-server-error", (req, res, next) => {
@@ -51,6 +75,7 @@ app.use(async (err, req, res, next) => {
   let displayTitle;
   let displayMessage;
 
+  // Status Code handling messaging
   switch (statusCode) {
     case 404:
       displayTitle = "404 Not Found";
@@ -62,12 +87,13 @@ app.use(async (err, req, res, next) => {
       break;
 
     default:
+      // Using standards 500-599 is server erros, and 400-499 is client errors
       if (statusCode >= 500 && statusCode < 600) {
         displayTitle = `${statusCode} Server Error`;
       } else if (statusCode >= 400 && statusCode < 500) {
         displayTitle = `${statusCode} Client Error`;
       } else {
-        displayTitle = 'Server Error'; // Generic fallback
+        displayTitle = 'Server Error';
       }
       displayMessage = err.message || 'An unexpected error occurred. Please try again.';
   }
@@ -90,5 +116,5 @@ const host = process.env.HOST
  * Log statement to confirm server operation
  *************************/
 app.listen(port, () => {
-  console.log(`app listening on http://${host}:${port}`) // I made the link clickable!! :)
+  console.log(`app listening on http://${host}:${port}`) // I made the link clickable from terminal!! :)
 })

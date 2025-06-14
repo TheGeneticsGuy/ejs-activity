@@ -72,7 +72,7 @@ Util.buildInventoryDetailView = async function (itemData) {
     const formattedPrice = new Intl.NumberFormat('en-US').format(price);
     const formattedMileage = new Intl.NumberFormat('en-US').format(miles);
 
-    // And other fields like inv_make, inv_model, inv_year, inv_color, inv_description exist.
+    // Rest of the fields like inv_make, inv_model, inv_year, inv_color, inv_description
     let html = `
         <div id="vehicle-detail-container">
             <div class="vehicle-image-section">
