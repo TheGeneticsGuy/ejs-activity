@@ -2,6 +2,15 @@
 
 <%- messages() %>
 
+<!-- Slightly enhanced check and more specific than the lesson -->
+<% if (typeof errors !== 'undefined' && errors.array().length > 0) { %>
+  <ul class="validation-errors">
+    <% errors.array().forEach(error => { %>
+      <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
+<% } %>
+
 <div class="login-container">
     <form id="registerForm" action="/account/register" method="POST">
         <fieldset>

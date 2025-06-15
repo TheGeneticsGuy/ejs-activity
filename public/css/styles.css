@@ -718,3 +718,24 @@ ul.messages li.alert-info {
     color: #ffffff;
     border: 1px solid #2980b9;
 }
+
+.validation-errors {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto 1.5em auto;
+    max-width: 450px;
+}
+
+.validation-errors li {
+    background-color: #e74c3c;
+    color: #ffffff;
+    padding: 0.8em 1.2em;
+    margin-bottom: 0.75em;
+    border-radius: 6px;
+    border: 1px solid #c0392b;
+    font-weight: 500;
+    text-align: left;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+}
