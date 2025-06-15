@@ -48,7 +48,10 @@ app.use(staticRoutes)
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", inventoryRoute);
+
+// Account Rotes
 app.use("/account", accountRoute);
+
 
 // 500 handler for testing
 app.get("/trigger-server-error", (req, res, next) => {
