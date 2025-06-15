@@ -53,10 +53,7 @@ async function registerAccount(req, res) {
     res.status(501).render("account/register", {
       title: "Registration",
       nav,
-      errors: [{ msg: "Registration attempt failed. Please check your input or try again later." }], // Example error message
-      account_firstname,
-      account_lastname,
-      account_email,
+      errors: null
     })
   }
 }
