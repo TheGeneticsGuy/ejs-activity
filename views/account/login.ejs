@@ -12,15 +12,17 @@
                        value="<%= locals.account_email || '' %>">
             </div>
 
-            <div class="password-wrapper"> <%# This is my wrapper for the p/w input for the toggle button between bullets and plain txt %>
+            <div>
                 <label for="account_password">Password:</label>
-                <input type="password" id="account_password" name="account_password" required
-                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$"
-                       title="Password must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
-                <button type="button" id="togglePassword" class="toggle-password-button">Show</button>
+                <div class="password-wrapper">
+                    <input type="password" id="account_password" name="account_password" required
+                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$"
+                           title="Password must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
+                    <button type="button" id="togglePassword" class="toggle-password-button" aria-label="Show password as plain text. Note: this will visually expose your password on the screen.">
+                        <img src="/images/password/eye-off.png" alt="Show password">
+                    </button>
+                </div>
             </div>
-            <span class="password-requirements">Passwords must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character. Spaces are not allowed.</span>
-
             <button type="submit" class="login-button">Login</button>
         </fieldset>
     </form>
@@ -35,13 +37,24 @@
         const passwordInput = document.getElementById('account_password');
 
         if (togglePasswordButton && passwordInput) {
+            // Get the image inside the button
+            const toggleIcon = togglePasswordButton.querySelector('img');
+
             togglePasswordButton.addEventListener('click', function () {
                 // Toggle the type check
                 const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInput.setAttribute('type', type);
 
-                // Toggle the button text
-                this.textContent = type === 'password' ? 'Show' : 'Hide';
+                // Change the icon and alt text
+                if (type === 'password') {
+                    toggleIcon.src = '/images/password/eye-off.png';
+                    toggleIcon.alt = 'Show password';
+                    this.setAttribute('aria-label', 'Show password as plain text. Note: this will visually expose your password on the screen.');
+                } else {
+                    toggleIcon.src = '/images/password/eye-on.png';
+                    toggleIcon.alt = 'Hide password';
+                    this.setAttribute('aria-label', 'Hide password and display as dots.');
+                }
             });
         }
     });

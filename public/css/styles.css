@@ -561,6 +561,11 @@ footer {
     margin-bottom: 1.5em;
 }
 
+#loginForm div,
+#registerForm div {
+    margin-bottom: 1.5em;
+}
+
 #loginForm label {
     display: block;
     margin-bottom: 0.5em;
@@ -570,13 +575,17 @@ footer {
 
 .password-wrapper {
     position: relative;
-    margin-bottom: 0.5em;
-    display: flex;
-    align-items: center;
 }
 
+/* My formatting kept going crazy until I just manually added every single one of these lol */
 #loginForm input[type="email"],
-#loginForm input[type="password"] {
+#loginForm input[type="password"],
+#loginForm input[type="text"],
+#registerForm input[type="email"],
+#registerForm input[type="password"],
+#registerForm input[type="text"],
+#registerForm input[type="text"][name="account_firstname"],
+#registerForm input[type="text"][name="account_lastname"] {
     width: 100%;
     padding: 0.8em 1em;
     border: 1px solid #7f8c8d;
@@ -586,13 +595,15 @@ footer {
     color: #2c3e50;
     font-size: 1rem;
     outline-color: #4BD6CB;
+    flex-grow: 1;
 }
 
 #loginForm .password-wrapper input[type="password"],
 #loginForm .password-wrapper input[type="text"] {
-    padding-right: 60px;/
+    padding-right: 40px;/
 }
 
+/* Needed to get the spacing within the p/w input box far right - geesh! */
 .toggle-password-button {
     position: absolute;
     top: 50%;
@@ -600,23 +611,33 @@ footer {
     transform: translateY(-50%);
     background-color: transparent;
     border: none;
-    color: #34495e;
     cursor: pointer;
-    font-size: 0.9em;
-    padding: 0.3em 0.5em;
-    font-weight: 600;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.toggle-password-button img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+#registerForm .password-requirements {
+    display: block;
+    font-size: 0.8rem;
+    color: #fff;
+    margin-top: 0.25em;
+    padding: 0;
+    margin-bottom: 1.5em;
+    line-height: 1.4;
 }
 
 .toggle-password-button:hover {
     color: #4BD6CB;
-}
-
-.password-requirements {
-    display: block;
-    font-size: 0.8rem;
-    color: #FFF;
-    margin-top: 0.5em;
-    line-height: 1.4;
 }
 
 .login-button {
@@ -631,12 +652,12 @@ footer {
     font-weight: bold;
     cursor: pointer;
     text-align: center;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    margin-top: 1em;
+    transition: background-color 0.1s ease, transform 0.1s ease;
+    margin-top: 4em;
 }
 
 .login-button:hover {
-    background-color: #dadedf;
+    background-color: #c3c4c4;
 }
 .login-button:active {
     transform: translateY(1px);

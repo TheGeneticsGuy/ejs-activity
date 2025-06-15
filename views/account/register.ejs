@@ -2,7 +2,7 @@
 
 <%- messages() %>
 
-<div class="login-container"> <%# Using login container for both login/register %>
+<div class="login-container">
     <form id="registerForm" action="/account/register" method="POST">
         <fieldset>
             <legend>Create Account</legend>
@@ -21,16 +21,20 @@
 
             <div>
                 <label for="account_email">Email:</label>
-                <input type="email" id="account_email" name="account_email" required
+                <input type="email" id="account_email_reg" name="account_email" required <%# Ensure uniqueID in case to differ from login %>
                        value="<%= locals.account_email || '' %>">
             </div>
 
-            <div class="password-wrapper">
-                <label for="account_password">Password:</label>
-                <input type="password" id="account_password_reg" name="account_password" required <%# Since using same form, I gave unique ids %>
-                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$"
-                       title="Password must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
-                <button type="button" id="togglePasswordReg" class="toggle-password-button">Show</button>
+            <div>
+                <label for="account_password_reg">Password:</label>
+                <div class="password-wrapper">
+                    <input type="password" id="account_password_reg" name="account_password" required
+                           pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$"
+                           title="Password must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
+                    <button type="button" id="togglePasswordReg" class="toggle-password-button" aria-label="Show password as plain text. Note: this will visually expose your password on the screen.">
+                        <img src="/images/password/eye-off.png" alt="Show password">
+                    </button>
+                </div>
             </div>
             <span class="password-requirements">Passwords must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character. Spaces are not allowed.</span>
 
@@ -42,17 +46,26 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // For Registration Page plain txt vs bullet toggle
         const togglePasswordButtonReg = document.getElementById('togglePasswordReg');
         const passwordInputReg = document.getElementById('account_password_reg');
 
         if (togglePasswordButtonReg && passwordInputReg) {
+            const toggleIconReg = togglePasswordButtonReg.querySelector('img');
+
             togglePasswordButtonReg.addEventListener('click', function () {
                 const type = passwordInputReg.getAttribute('type') === 'password' ? 'text' : 'password';
                 passwordInputReg.setAttribute('type', type);
-                this.textContent = type === 'password' ? 'Show' : 'Hide';
+
+                if (type === 'password') {
+                    toggleIconReg.src = '/images/password/eye-off.png';
+                    toggleIconReg.alt = 'Show password';
+                    this.setAttribute('aria-label', 'Show password as plain text. Note: this will visually expose your password on the screen.');
+                } else {
+                    toggleIconReg.src = '/images/password/eye-on.png';
+                    toggleIconReg.alt = 'Hide password';
+                    this.setAttribute('aria-label', 'Hide password and display as dots.');
+                }
             });
         }
-
     });
 </script>
