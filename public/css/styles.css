@@ -695,12 +695,12 @@ footer {
 }
 
 #messages ul li {
-    padding: 1em 1.5em;
+    padding: 0.5em;
     margin-bottom: 1em;
     border-radius: 8px;
     text-align: center;
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 1.25rem;
     color: #ffffff;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
     border-width: 1px;
