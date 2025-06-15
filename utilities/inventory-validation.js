@@ -10,7 +10,7 @@ validate.addClassificationRules = () => {
         // classification_name required to be alphabetic
         body("classification_name")
             .trim()
-            .isEmpty()
+            .notEmpty()
             .withMessage("Please provide a Classification name.")
             .isAlpha() // Checks if the string contains only letters (a-zA-Z)
             .withMessage("Classification name must contain only letters.")
@@ -33,6 +33,7 @@ validate.checkClassificationData = async (req, res, next) => {
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
         let nav = await require("../utilities/").getNav();
+        const classificationsData = await invModel.getClassifications();
         res.render("inventory/add-classification", {
             errors,
             title: "Add New Classification",
