@@ -570,7 +570,7 @@ footer {
     display: block;
     margin-bottom: 0.5em;
     font-weight: bold;
-    color: #ecf0f1;
+    color: #fff;
 }
 
 .password-wrapper {
@@ -628,9 +628,9 @@ footer {
 
 #registerForm .password-requirements {
     display: block;
-    font-size: 0.8rem;
-    color: #fff;
-    margin-top: 0.25em;
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-top: -1em;
     padding: 0;
     margin-bottom: 1.5em;
     line-height: 1.4;
