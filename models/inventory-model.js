@@ -55,8 +55,19 @@ async function addClassification(classification_name) {
     }
 }
 
-async function checkExistingClassificationByName(classification_name) {
 
+/* ****************************************
+ *  Check if a classification name already exists
+ * ************************************ */
+async function checkExistingClassificationByName(classification_name) {
+    try {
+        const sql = "SELECT * FROM public.classification WHERE classification_name = $1";
+        const result = await pool.query(sql, [classification_name]);
+        return result.rowCount > 0; // Returns true if it exosts, basically
+    } catch (error) {
+        console.error("Error in checkExistingClassificationByName model: " + error.message);
+        return false;
+    }
 }
 
 

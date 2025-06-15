@@ -32,21 +32,17 @@ validate.checkClassificationData = async (req, res, next) => {
     const { classification_name } = req.body;
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
-        let nav = await require("../utilities/").getNav(); // Require utilities directly here for getNav
+        let nav = await require("../utilities/").getNav();
         res.render("inventory/add-classification", {
-            errors, // Pass the full errors object
+            errors,
             title: "Add New Classification",
             nav,
             classification_name, // Pass back for sticky form
+            classifications: classificationsData.rows,
         });
         return;
     }
     next();
 };
-
-
-// You'll add rules for adding inventory item later
-// validate.addInventoryRules = () => { ... };
-// validate.checkInventoryData = async (req, res, next) => { ... };
 
 module.exports = validate;
