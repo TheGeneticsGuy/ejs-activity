@@ -34,6 +34,12 @@ app.use(function (req, res, next) {
   next()
 })
 
+// I want to make the session available to my header partial (and all views)
+app.use(function(req, res, next) {
+  res.locals.loggedin = req.session.loggedin || false; // true if loggedin, else false
+  next();
+});
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 

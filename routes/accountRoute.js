@@ -11,10 +11,34 @@ router.get("/login",utilities.handleErrors(accountController.buildLogin));
 router.get("/register", utilities.handleErrors(accountController.buildRegister));
 
 // Route to process registration
-router.post('/register',
-  regValidate.registationRules(),
+router.post("/register",
+  regValidate.registrationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
 )
+
+// Process the login attempt
+router.post( "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.loginAccount)
+)
+
+// For Profile page  -  /account/profile
+router.get(
+    "/profile",
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildProfileView)
+);
+
+// Placeholder route for the base /account/ path
+router.get(
+    "/",
+    utilities.checkLogin, // Protect this route
+    utilities.handleErrors(accountController.buildAccountManagementView) // Placeholder for now
+);
+
+// Route for Logout
+router.get("/logout", accountController.logoutAccount);
 
 module.exports = router;

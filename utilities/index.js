@@ -96,6 +96,19 @@ Util.buildInventoryDetailView = async function (itemData) {
 }
 
 /* ****************************************
+ *  Check if user is logged in
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+    if (req.session.loggedin) {
+      next();
+    } else {
+      req.flash("notice", "Please log in to access this page.");
+      res.redirect("/account/login"); // Redirects to login if NOT logged in
+    }
+};
+
+
+/* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for
  * General Error Handling

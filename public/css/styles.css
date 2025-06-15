@@ -739,3 +739,19 @@ ul.messages li.alert-info {
     display: flex;
     align-items: center;
 }
+
+.profile-container {
+    text-align: center;
+    padding: 2em;
+    margin-top: 2em;
+    background-color: #f9f9f9; /* Light background */
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.profile-container p {
+    font-size: 1.2em;
+    color: #333;
+}
