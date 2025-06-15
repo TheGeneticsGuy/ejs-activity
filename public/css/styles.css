@@ -524,6 +524,7 @@ footer {
 .login-heading {
     text-align: center;
     margin-bottom: 1em;
+    color: #34495e;
 }
 
 .login-container {
@@ -536,8 +537,7 @@ footer {
     color: #ecf0f1;
 }
 
-.login-container h1,
-.login-heading {
+.login-container h1 {
     color: #ffffff;
 }
 
