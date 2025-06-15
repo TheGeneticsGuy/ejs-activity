@@ -41,4 +41,29 @@ async function getInventoryByInventoryId(inventory_id) {
     }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryByInventoryId };
+/* ***************************
+ *  Add New Classification to Database
+ * ************************** */
+async function addClassification(classification_name) {
+    try {
+        const sql = "INSERT INTO public.classification (classification_name) VALUES ($1) RETURNING *";
+        const result = await pool.query(sql, [classification_name]);
+        return result;
+    } catch (error) {
+        console.error("Error in addClassification model: " + error.message);
+        return null;
+    }
+}
+
+async function checkExistingClassificationByName(classification_name) {
+
+}
+
+
+module.exports = {
+    getClassifications,
+    getInventoryByClassificationId,
+    getInventoryByInventoryId,
+    addClassification,
+    checkExistingClassificationByName
+};

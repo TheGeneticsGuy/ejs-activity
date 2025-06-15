@@ -806,3 +806,129 @@ ul.messages li.alert-info {
 .management-links-container ul li a:active {
     transform: translateY(1px);
 }
+
+/* Add Classification and Inventory */
+.form-container {
+    max-width: 550px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.form-container fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.form-container .form-instructions {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-bottom: 1.5em;
+    padding: 0.75em;
+    background-color: #e9ecef;
+    border-left: 4px solid #007bff;
+    border-radius: 0.25rem;
+}
+
+.form-container label[for="classification_name"] {
+    display: block;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    color: #495057;
+}
+
+.form-container input#classification_name {
+    width: 100%;
+    padding: 0.75em 1em;
+    border: 1px solid #ced4da;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fff;
+    outline-color: #4BD6CB;
+}
+
+.form-container button[type="submit"].form-button {
+    display: block;
+    width: 100%;
+    padding: 0.9em;
+    background-color: #0b4f6c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 1.5em;
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.form-container button[type="submit"].form-button:hover {
+    background-color: #017bff;
+}
+
+.form-container button[type="submit"].form-button:active {
+    transform: translateY(1px);
+}
+
+.form-container .form-navigation {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.go-back-button {
+    display: inline-block;
+    padding: 0.7em 1.5em;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.go-back-button:hover {
+    background-color: #5a6268;
+}
+
+.existing-classifications-list {
+    margin-top: 2.5em;
+    padding: 1.5em;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.existing-classifications-list h2 {
+    margin-top: 0;
+    margin-bottom: 1em;
+    text-align: center;
+    color: #0b4f6c;
+    font-size: 1.3em;
+}
+
+.existing-classifications-list ul {
+    list-style-type: disc;
+    padding-left: 25px;
+    margin: 0;
+    text-align: left;
+}
+
+.existing-classifications-list li {
+    margin-bottom: 0.5em;
+    color: #495057;
+}
+
+.existing-classifications-list p {
+    text-align: center;
+    color: #6c757d;
+}

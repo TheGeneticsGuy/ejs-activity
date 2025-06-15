@@ -51,7 +51,6 @@ invCont.buildManagementView = async function (req, res, next) {
        req.flash("notice", "Please log in to access vehicle management.");
        return res.redirect("/account/login");
     }
-    // Add further checks for account_type (e.g., 'Admin', 'Employee') from req.session.accountData
 
     res.render("./inventory/management", {
         title: "Vehicle Management",
@@ -60,5 +59,52 @@ invCont.buildManagementView = async function (req, res, next) {
     });
 };
 
+/* ***************************
+ *  Build Add New Classification View
+ * ************************** */
+invCont.buildAddClassification = async function (req, res, next) {
+    let nav = await utilities.getNav();
+    const classifications = await invModel.getClassifications();
+
+    res.render("./inventory/add-classification", {
+        title: "Add New Classification",
+        nav,
+        errors: null,
+        classification_name: "", // Initialize for sticky form
+        classifications: classifications.rows,
+    });
+};
+
+/* ***************************
+ *  Process Adding a New Classification
+ * ************************** */
+invCont.processAddClassification = async function (req, res, next) {
+    const { classification_name } = req.body;
+    let nav = await utilities.getNav();
+
+    const addResult = await invModel.addClassification(classification_name);
+
+    if (addResult && addResult.rowCount > 0) { // Veryifying query was good
+        // Since it got added I have to regenerate to nav to call and refresh again
+        let updatedNav = await utilities.getNav(req, res);
+
+        req.flash("notice", `The classification "${classification_name}" was successfully added.`);
+        // Rendering to the management view
+        res.status(201).render("./inventory/management", {
+            title: "Vehicle Management",
+            nav: updatedNav,
+            errors: null,
+        });
+    } else {
+        // Failure to add
+        req.flash("notice", `Adding the classification "${classification_name}" failed. Please try again.`);
+        res.status(501).render("./inventory/add-classification", {
+            title: "Add New Classification",
+            nav,
+            errors: { array: () => [{ msg: "Failed to add classification to the database." }] },
+            classification_name,
+        });
+    }
+};
 
 module.exports = invCont
