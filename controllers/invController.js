@@ -40,4 +40,25 @@ invCont.buildByInventoryId = async function (req, res, next) {
     });
 }
 
+/* ***************************
+ *  Build Inventory Management View
+ *  Accessed via GET /inv/
+ * ************************** */
+invCont.buildManagementView = async function (req, res, next) {
+    let nav = await utilities.getNav();
+
+    if (!req.session.loggedin) { // Example protection
+       req.flash("notice", "Please log in to access vehicle management.");
+       return res.redirect("/account/login");
+    }
+    // Add further checks for account_type (e.g., 'Admin', 'Employee') from req.session.accountData
+
+    res.render("./inventory/management", {
+        title: "Vehicle Management",
+        nav,
+        errors: null,
+    });
+};
+
+
 module.exports = invCont

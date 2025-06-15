@@ -755,3 +755,54 @@ ul.messages li.alert-info {
     font-size: 1.2em;
     color: #333;
 }
+
+/* Inventory Management View /inv */
+.management-links-container {
+    margin-top: 1.5em;
+    padding: 2em;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.management-links-container p {
+    margin-bottom: 1.5em;
+    font-size: 1.1em;
+}
+
+.management-links-container ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: 1em;
+}
+
+.management-links-container ul li {
+    margin-bottom: 1em;
+}
+
+.management-links-container ul li a {
+    display: inline-block;
+    width: 60%;
+    max-width: 400px;
+    min-width: 280px;
+    padding: 0.75em 1em;
+    background-color: #0b4f6c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    transition: background-color 0.1s ease-in-out, transform 0.1s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.management-links-container ul li a:hover {
+    background-color: #017bff;
+    transform: translateY(-1px);
+}
+
+.management-links-container ul li a:active {
+    transform: translateY(1px);
+}
