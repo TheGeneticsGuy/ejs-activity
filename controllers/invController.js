@@ -88,7 +88,7 @@ invCont.processAddClassification = async function (req, res, next) {
         // Since it got added I have to regenerate to nav to call and refresh again
         let updatedNav = await utilities.getNav(req, res);
 
-        req.flash("notice", `The classification "${classification_name}" was successfully added.`);
+        req.flash("success", `The classification "${classification_name}" was successfully added.`);
         // Rendering to the management view
         res.status(201).render("./inventory/management", {
             title: "Vehicle Management",
@@ -97,7 +97,7 @@ invCont.processAddClassification = async function (req, res, next) {
         });
     } else {
         // Failure to add
-        req.flash("notice", `Adding the classification "${classification_name}" failed. Please try again.`);
+        req.flash("error", `Adding the classification "${classification_name}" failed. Please try again.`);
         res.status(501).render("./inventory/add-classification", {
             title: "Add New Classification",
             nav,

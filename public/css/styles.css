@@ -685,38 +685,41 @@ footer {
 ul.messages {
     list-style-type: none;
     padding: 0;
-    margin: 0 auto 1.5em auto;
-    max-width: 450px;
+    margin: 1.5em auto;
+    max-width: 600px;
 }
 
 ul.messages li {
-    padding: 0.8em 1.2em;
-    margin-bottom: 0.75em;
-    border-radius: 6px;
+    padding: 1em 1.5em;
+    margin-bottom: 1em;
+    border-radius: 8px;
     text-align: center;
     font-weight: 500;
-}
-
-ul.messages li.error,
-ul.messages li.alert-error {
-    background-color: #e74c3c;
+    font-size: 1rem;
     color: #ffffff;
-    border: 1px solid #c0392b;
-}
-
-ul.messages li.success,
-ul.messages li.alert-success {
-    background-color: #2ecc71;
-    color: #ffffff;
-    border: 1px solid #27ae60;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    border-width: 1px;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 ul.messages li.notice,
-ul.messages li.info,
-ul.messages li.alert-info {
+ul.messages li.info {
     background-color: #3498db;
-    color: #ffffff;
-    border: 1px solid #2980b9;
+    border-color: #2980b9;
+}
+
+ul.messages li.success {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+ul.messages li.error,
+ul.messages li.warning {
+    background-color: #e74c3c;
+    border-color: #c0392b;
 }
 
 .validation-errors {
@@ -744,7 +747,7 @@ ul.messages li.alert-info {
     text-align: center;
     padding: 2em;
     margin-top: 2em;
-    background-color: #f9f9f9; /* Light background */
+    background-color: #f9f9f9;
     border-radius: 8px;
     max-width: 600px;
     margin-left: auto;
