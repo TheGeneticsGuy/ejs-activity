@@ -368,13 +368,13 @@ footer {
 }
 
 /* Styling for the "no vehicles found" message */
-.notice {
+/* .notice {
   text-align: center;
   padding: 2em;
   font-size: 1.2em;
   color: #777;
   grid-column: 1 / -1;
-}
+} */
 
 /* --- Inventory Detail View --- */
 .detail-page-content {
@@ -682,14 +682,19 @@ footer {
 }
 
 /* EXPRESS MESSAGES - they get filtered as ul.messages */
-ul.messages {
+#messages {
+    margin: 1.5em auto;
+    max-width: 600px;
+}
+
+#messages ul {
     list-style-type: none;
     padding: 0;
     margin: 1.5em auto;
     max-width: 600px;
 }
 
-ul.messages li {
+#messages ul li {
     padding: 1em 1.5em;
     margin-bottom: 1em;
     border-radius: 8px;
@@ -705,19 +710,19 @@ ul.messages li {
     justify-content: center;
 }
 
-ul.messages li.notice,
-ul.messages li.info {
+#messages ul.notice li,
+#messages ul.info li {
     background-color: #3498db;
     border-color: #2980b9;
 }
 
-ul.messages li.success {
+#messages ul.success li {
     background-color: #2ecc71;
     border-color: #27ae60;
 }
 
-ul.messages li.error,
-ul.messages li.warning {
+#messages ul.error li,
+#messages ul.warning li {
     background-color: #e74c3c;
     border-color: #c0392b;
 }

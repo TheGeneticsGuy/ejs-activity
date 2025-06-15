@@ -100,10 +100,10 @@ async function loginAccount(req, res, next) {
           account_type: accountData.account_type,
       };
       // Placeholder page
-      req.flash("notice", `Welcome back, ${accountData.account_firstname}!`);
+      req.flash("success", `Welcome back, ${accountData.account_firstname}!`);
       return res.redirect("/account/profile");  // might change to management later
     } else {
-      req.flash("notice", "Invalid credentials. Please check your email and password."); // Validator should catch this but I'll keep just in case
+      req.flash("warning", "Invalid credentials. Please check your email and password."); // Validator should catch this but I'll keep just in case
       return res.status(400).render("account/login", {
         title: "Login",
         nav,
