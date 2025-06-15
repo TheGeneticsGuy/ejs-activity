@@ -600,7 +600,7 @@ footer {
 
 #loginForm .password-wrapper input[type="password"],
 #loginForm .password-wrapper input[type="text"] {
-    padding-right: 40px;/
+    padding-right: 40px;
 }
 
 /* Needed to get the spacing within the p/w input box far right - geesh! */
