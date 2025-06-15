@@ -568,6 +568,13 @@ footer {
     color: #ecf0f1;
 }
 
+.password-wrapper {
+    position: relative;
+    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
 #loginForm input[type="email"],
 #loginForm input[type="password"] {
     width: 100%;
@@ -579,6 +586,29 @@ footer {
     color: #2c3e50;
     font-size: 1rem;
     outline-color: #4BD6CB;
+}
+
+#loginForm .password-wrapper input[type="password"],
+#loginForm .password-wrapper input[type="text"] {
+    padding-right: 60px;/
+}
+
+.toggle-password-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    color: #34495e;
+    cursor: pointer;
+    font-size: 0.9em;
+    padding: 0.3em 0.5em;
+    font-weight: 600;
+}
+
+.toggle-password-button:hover {
+    color: #4BD6CB;
 }
 
 .password-requirements {

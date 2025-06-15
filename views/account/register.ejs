@@ -1,0 +1,58 @@
+<h1 class="login-heading"><%- title %></h1>
+
+<%- messages() %>
+
+<div class="login-container"> <%# Using login container for both login/register %>
+    <form id="registerForm" action="/account/register" method="POST">
+        <fieldset>
+            <legend>Create Account</legend>
+
+            <div>
+                <label for="account_firstname">First Name:</label>
+                <input type="text" id="account_firstname" name="account_firstname" required
+                       value="<%= locals.account_firstname || '' %>">
+            </div>
+
+            <div>
+                <label for="account_lastname">Last Name:</label>
+                <input type="text" id="account_lastname" name="account_lastname" required
+                       value="<%= locals.account_lastname || '' %>">
+            </div>
+
+            <div>
+                <label for="account_email">Email:</label>
+                <input type="email" id="account_email" name="account_email" required
+                       value="<%= locals.account_email || '' %>">
+            </div>
+
+            <div class="password-wrapper">
+                <label for="account_password">Password:</label>
+                <input type="password" id="account_password_reg" name="account_password" required <%# Since using same form, I gave unique ids %>
+                       pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9\s]).{12,}$"
+                       title="Password must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character (no spaces).">
+                <button type="button" id="togglePasswordReg" class="toggle-password-button">Show</button>
+            </div>
+            <span class="password-requirements">Passwords must be at least 12 characters and include at least 1 capital letter, 1 number, and 1 special character. Spaces are not allowed.</span>
+
+            <button type="submit" class="login-button">Register</button>
+        </fieldset>
+    </form>
+    <p class="signup-link">Already have an account? <a href="/account/login">Login</a></p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // For Registration Page plain txt vs bullet toggle
+        const togglePasswordButtonReg = document.getElementById('togglePasswordReg');
+        const passwordInputReg = document.getElementById('account_password_reg');
+
+        if (togglePasswordButtonReg && passwordInputReg) {
+            togglePasswordButtonReg.addEventListener('click', function () {
+                const type = passwordInputReg.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInputReg.setAttribute('type', type);
+                this.textContent = type === 'password' ? 'Show' : 'Hide';
+            });
+        }
+
+    });
+</script>
