@@ -47,7 +47,6 @@ app.use(staticRoutes)
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
-app.get("/account", utilities.handleErrors(accountRoute));
 app.use("/inv", inventoryRoute);
 app.use("/account", accountRoute);
 

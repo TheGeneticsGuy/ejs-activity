@@ -4,6 +4,6 @@ const accController = require("../controllers/accountController");
 const utilities = require("../utilities/");
 
 // Making a Details page
-router.get("/account/login", utilities.handleErrors(accController.buildLogin));
+router.get("/login", utilities.handleErrors(accController.buildLogin));
 
 module.exports = router;
