@@ -90,10 +90,9 @@ a:hover {
 
 #tools a:hover {
   background-color: #3a75a8;
-  color: #3B2525;
+  color: #fff;
   text-decoration: none;
 }
-
 
 nav {
   background-color: #343a40;
@@ -584,7 +583,7 @@ footer {
 .password-requirements {
     display: block;
     font-size: 0.8rem;
-    color: #bdc3c7;
+    color: #FFF;
     margin-top: 0.5em;
     line-height: 1.4;
 }
