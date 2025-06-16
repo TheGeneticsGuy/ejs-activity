@@ -51,8 +51,7 @@ validate.addInventoryRules = () => {
     return [
         body("classification_id")
             .trim()
-            .notEmpty().withMessage("Please select a classification.")
-            .isAlpha().withMessage("Classification name must contain only letters."),
+            .notEmpty().withMessage("Please select a classification."),
 
         body("inv_make")
             .trim()
