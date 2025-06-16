@@ -36,9 +36,10 @@
 
             <div>
                 <label for="inv_year">Year:</label>
-                <input type="number" id="inv_year" name="inv_year" required min="1900" max="<%= new Date().getFullYear() + 5 %>" placeholder="YYYY"
-                    pattern="\d{4}" title="Enter a 4-digit year"
+                <input type="number" id="inv_year" name="inv_year" required
+                    min="1900" max="<%= new Date().getFullYear() + 5 %>" placeholder="YYYY"
                     value="<%= locals.inv_year || '' %>">
+                <small>Enter a 4-digit year (e.g., 2025).</small>
             </div>
 
             <div>
@@ -50,7 +51,7 @@
             <div>
                 <label for="inv_image">Image Path:</label>
                 <input type="text" id="inv_image" name="inv_image" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9._-]+$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+$"
                     title="Example: /images/vehicles/your-image.png"
                     value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>">
                 <small>Default: /images/vehicles/no-image.png</small>
@@ -59,7 +60,7 @@
             <div>
                 <label for="inv_thumbnail">Thumbnail Path:</label>
                 <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9._-]+$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+$"
                     title="Example: /images/vehicles/your-tn-image.png"
                     value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>">
                 <small>Default: /images/vehicles/no-image-tn.png</small>
