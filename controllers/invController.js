@@ -47,10 +47,10 @@ invCont.buildByInventoryId = async function (req, res, next) {
 invCont.buildManagementView = async function (req, res, next) {
     let nav = await utilities.getNav();
 
-    if (!req.session.loggedin) { // Example protection
-       req.flash("notice", "Please log in to access vehicle management.");
-       return res.redirect("/account/login");
-    }
+    // if (!req.session.loggedin) { // Example protection
+    //    req.flash("notice", "Please log in to access vehicle management.");
+    //    return res.redirect("/account/login");
+    // }
 
     res.render("./inventory/management", {
         title: "Vehicle Management",
