@@ -966,7 +966,7 @@ footer {
 .form-container small {
     display: block;
     font-size: 0.85em;
-    color: #6c757d;
+    color: #000;
     margin-top: 0.3em;
     margin-bottom: 0.5em;
 }
