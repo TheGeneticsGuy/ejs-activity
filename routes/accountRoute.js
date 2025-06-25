@@ -21,21 +21,21 @@ router.post("/register",
 router.post( "/login",
   regValidate.loginRules(),
   regValidate.checkLoginData,
-  utilities.handleErrors(accountController.loginAccount)
+  utilities.handleErrors(accountController.accountLogin)
 )
 
 // For Profile page  -  /account/profile
 router.get(
     "/profile",
-    utilities.checkLogin,
+    utilities.requireAuth,
     utilities.handleErrors(accountController.buildProfileView)
 );
 
-// Placeholder route for the base /account/ path
+// For Account Management View
 router.get(
     "/",
-    utilities.checkLogin, // Protect this route
-    utilities.handleErrors(accountController.buildAccountManagementView) // Placeholder for now
+    utilities.requireAuth,
+    utilities.handleErrors(accountController.buildAccountManagementView)
 );
 
 // Route for Logout

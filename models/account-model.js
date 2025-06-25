@@ -26,17 +26,17 @@ async function checkExistingEmail(account_email){
   }
 }
 
-/* **********************
- *   Get account data by email (for login)
- * ********************* */
+/* *****************************
+* Return account data using email address
+* ***************************** */
 async function getAccountByEmail (account_email) {
   try {
     const result = await pool.query(
       'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
       [account_email])
-    return result.rows[0] // Returns the first matching row object - should be only 1 (or it returns undefined)
+    return result.rows[0]
   } catch (error) {
-    return undefined;
+    return new Error("No matching email found")
   }
 }
 

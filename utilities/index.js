@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* ************************
  * Constructs the nav HTML unordered list
@@ -119,17 +121,40 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList;
 };
 
+
 /* ****************************************
- *  Check if user is logged in
+ *  Middleware to check if a user is authenticated (via JWT)
  * ************************************ */
-Util.checkLogin = (req, res, next) => {
-    if (req.session.loggedin) {
-      next();
+Util.requireAuth = (req, res, next) => {
+    if (res.locals.loggedin) {
+        next();
     } else {
-      req.flash("notice", "Please log in to access this page.");
-      res.redirect("/account/login"); // Redirects to login if NOT logged in
+        req.flash("notice", "You must be logged in to view this page.");
+        res.redirect("/account/login");
     }
 };
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+ if (req.cookies.jwt) {
+  jwt.verify(
+   req.cookies.jwt,
+   process.env.ACCESS_TOKEN_SECRET,
+   function (err, accountData) {
+    if (err) {
+     req.flash("Please log in")
+     res.clearCookie("jwt")
+     return res.redirect("/account/login")
+    }
+    res.locals.accountData = accountData
+    res.locals.loggedin = 1
+    next()
+   })
+ } else {
+  next()
+ }
+}
 
 /* ****************************************
  * Middleware For Handling Errors

@@ -1,13 +1,15 @@
 const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* ****************************************
 * Deliver login view
 * *************************************** */
 async function buildLogin(req, res, next) {
-    if (req.session.loggedin) {
-        return res.redirect("/account/profile");
+    if (res.locals.loggedin) {
+        return res.redirect("/account/");
     }
     let nav = await utilities.getNav();
     res.render("account/login", {
@@ -21,8 +23,8 @@ async function buildLogin(req, res, next) {
 *  Deliver registration view
 * *************************************** */
 async function buildRegister(req, res, next) {
-  if (req.session.loggedin) {
-        return res.redirect("/account/profile");
+  if (res.locals.loggedin) {
+        return res.redirect("/account/");
     }
   let nav = await utilities.getNav()
   res.render("account/register", {
@@ -50,6 +52,7 @@ async function registerAccount(req, res) {
       nav,
       errors: null,
     })
+    return;
   }
 
   const regResult = await accountModel.registerAccount(
@@ -67,6 +70,7 @@ async function registerAccount(req, res) {
     res.status(201).render("account/login", {
       title: "Login",
       nav,
+      errors: null
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
@@ -79,40 +83,46 @@ async function registerAccount(req, res) {
 }
 
 /* ****************************************
-*  Process Login
-* *************************************** */
-async function loginAccount(req, res, next) {
-  let nav = await utilities.getNav();
-  const { account_email, account_password } = req.body; // These were validated by checkLoginData
-  const accountData = req.accountData;
-
+ *  Process login request
+ * ************************************ */
+async function accountLogin(req, res) {
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (!accountData) {
+    req.flash("notice", "Please check your credentials and try again.")
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    })
+    return
+  }
   try {
-    const passwordMatch = await bcrypt.compare(account_password, accountData.account_password);
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
 
-    if (passwordMatch) {
-      // Passwords match!!! Store user info in session
-      req.session.loggedin = true;
-      req.session.accountData = { // Remember, do not store SENSITIVE info, like p/w
-          account_id: accountData.account_id,
-          account_firstname: accountData.account_firstname,
-          account_lastname: accountData.account_lastname,
-          account_email: accountData.account_email,
-          account_type: accountData.account_type,
-      };
-      // Placeholder page
-      req.flash("success", `Welcome back, ${accountData.account_firstname}!`);
-      return res.redirect("/account/profile");  // might change to management later
-    } else {
-      req.flash("warning", "Invalid credentials. Please check your email and password."); // Validator should catch this but I'll keep just in case
-      return res.status(400).render("account/login", {
+      if(process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+      } else {
+        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      }
+
+      return res.redirect("/account/")
+    }
+    else {
+      req.flash("message notice", "Please check your credentials and try again.")
+      res.status(400).render("account/login", {
         title: "Login",
         nav,
         errors: null,
-        account_email, // Gonna pass back the email for messaging clarity
-      });
+        account_email,
+      })
     }
   } catch (error) {
-    return next(error);
+    throw new Error('Access Forbidden')
   }
 }
 
@@ -121,7 +131,7 @@ async function loginAccount(req, res, next) {
 * *************************************** */
 async function buildProfileView(req, res, next) {
     let nav = await utilities.getNav();
-    const accountData = req.session.accountData;
+    const accountData = res.locals.accountData;
 
     if (!accountData) {
         // Techynically won't happen with the checkLogin middleware, but maybe multi-tab concurrency protection
@@ -133,22 +143,24 @@ async function buildProfileView(req, res, next) {
         title: "My Profile",
         nav,
         errors: null,
-        account_firstname: accountData.account_firstname // Pass the first name to the view for msg
+        account_firstname: accountData.account_firstname, // Pass the first name to the view for msg
+        account_type: accountData.account_type  // In case we want to pass admin status
     });
 }
 
 /* ****************************************
-*  Build Account Management View (Placeholder for now)
+*  Build Account Management View
 * *************************************** */
 async function buildAccountManagementView(req, res, next) {
     let nav = await utilities.getNav();
-    const accountData = req.session.accountData;
+    const accountData = res.locals.accountData;
 
-    res.render("account/management", { // Maybe will create later??
+    res.render("account/management", {
         title: "Account Management",
         nav,
         errors: null,
-        account_firstname: accountData.account_firstname
+        account_firstname: accountData.account_firstname,
+        account_type: accountData.account_type
     });
 }
 
@@ -156,14 +168,14 @@ async function buildAccountManagementView(req, res, next) {
 *  Process Logout
 * *************************************** */
 async function logoutAccount(req, res, next) {
-    if (req.session && req.session.loggedin) {
-        req.flash("notice", "You have been logged out successfully.");
+    res.clearCookie('jwt')
+    req.flash("notice", "You have been logged out successfully.");
 
+    if (req.session) {
         req.session.destroy(err => {
             if (err) {
                 console.error("Error destroying session:", err);
             }
-            res.clearCookie('sessionId'); // 'sessionId' is your cookie - clearing it
             return res.redirect('/'); // Redirect to homepage
         });
     } else {
@@ -175,7 +187,7 @@ module.exports = {
     buildLogin,
     buildRegister,
     registerAccount,
-    loginAccount,
+    accountLogin,
     buildProfileView,
     buildAccountManagementView,
     logoutAccount
