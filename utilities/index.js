@@ -121,18 +121,6 @@ Util.buildClassificationList = async function (classification_id = null) {
     return classificationList;
 };
 
-
-/* ****************************************
- *  Middleware to check if a user is authenticated (via JWT)
- * ************************************ */
-Util.requireAuth = (req, res, next) => {
-    if (res.locals.loggedin) {
-        next();
-    } else {
-        req.flash("notice", "You must be logged in to view this page.");
-        res.redirect("/account/login");
-    }
-};
 /* ****************************************
 * Middleware to check token validity
 **************************************** */
@@ -155,6 +143,18 @@ Util.checkJWTToken = (req, res, next) => {
   next()
  }
 }
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
+  }
+ }
 
 /* ****************************************
  * Middleware For Handling Errors

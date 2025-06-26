@@ -27,14 +27,14 @@ router.post( "/login",
 // For Profile page  -  /account/profile
 router.get(
     "/profile",
-    utilities.requireAuth,
+    utilities.checkLogin,
     utilities.handleErrors(accountController.buildProfileView)
 );
 
 // For Account Management View
 router.get(
     "/",
-    utilities.requireAuth,
+    utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountManagementView)
 );
 
