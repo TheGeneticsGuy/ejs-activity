@@ -30,6 +30,7 @@ app.use(session({
 }))
 
 app.use(require('connect-flash')())
+app.use(express.static("public"))
 app.use(function (req, res, next) { // Make flash messages available to views
   res.locals.messages = require('express-messages')(req, res);
   next();

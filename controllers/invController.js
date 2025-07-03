@@ -46,16 +46,13 @@ invCont.buildByInventoryId = async function (req, res, next) {
  * ************************** */
 invCont.buildManagementView = async function (req, res, next) {
     let nav = await utilities.getNav();
-
-    // if (!req.session.loggedin) { // Example protection
-    //    req.flash("notice", "Please log in to access vehicle management.");
-    //    return res.redirect("/account/login");
-    // }
+    const classificationSelect = await utilities.buildClassificationList();
 
     res.render("./inventory/management", {
-        title: "Vehicle Management",
+        title: "Inventory Management",
         nav,
-        errors: null,
+        classificationSelect,    // Need to pass this to the EJS file to be rendered
+        errors: null
     });
 };
 
@@ -196,5 +193,18 @@ invCont.processAddInventory = async function (req, res, next) {
         });
     }
 };
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
 
 module.exports = invCont

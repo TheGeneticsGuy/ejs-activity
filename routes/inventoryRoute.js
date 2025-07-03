@@ -11,6 +11,12 @@ router.get(
     utilities.handleErrors(invController.buildManagementView)
 );
 
+// GET  /inv/getInventory/:classification_id
+router.get(
+    "/getInventory/:classification_id",
+    utilities.handleErrors(invController.getInventoryJSON)
+);
+
 // Classification route GET
 router.get(
     "/add-classification",
@@ -51,5 +57,7 @@ router.get("/type/:classificationId",
 router.get("/detail/:inventoryId",
     utilities.handleErrors(invController.buildByInventoryId)
 );
+
+
 
 module.exports = router;

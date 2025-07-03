@@ -977,3 +977,64 @@ footer {
     font-weight: 600;
     color: #495057;
 }
+
+#classificationList {
+    width: 100%;
+    max-width: 450px;
+    padding: 0.75em 1em;
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+    border: 1px solid #ced4da;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fff;
+    outline-color: #4BD6CB;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    cursor: pointer;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 1em center;
+    background-size: 1em;
+    padding-right: 2.5em;
+}
+
+#classificationList:focus {
+    border-color: #4BD6CB;
+    box-shadow: 0 0 0 0.2rem rgba(75, 214, 203, 0.25);
+}
+
+#inventoryDisplay {
+    width: 100%;
+    margin-top: 1em;
+    border-collapse: collapse;
+}
+
+#inventoryDisplay th,
+#inventoryDisplay td {
+    border: 1px solid #dee2e6;
+    padding: 0.75em;
+    text-align: left;
+}
+
+#inventoryDisplay th {
+    background-color: #e9ecef;
+    font-weight: 600;
+    color: #0b4f6c;
+}
+
+/* Alternating colors every other line like a spreadsheet */
+#inventoryDisplay tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#inventoryDisplay tr:hover {
+    background-color: #f1f1f1;
+}
+
+.noscript {
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+}
