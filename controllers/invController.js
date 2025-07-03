@@ -207,4 +207,47 @@ invCont.getInventoryJSON = async (req, res, next) => {
   }
 }
 
+/* ***************************
+ *  Build Edit Inventory View
+ * ************************** */
+invCont.buildEditInventoryView = async function (req, res, next) {
+    const inventory_id = parseInt(req.params.inventoryId);
+    let nav = await utilities.getNav();
+    const itemData = await invModel.getInventoryByInventoryId(inventory_id);
+
+     // Adding for quality of life redirect in case someone manually adds invalid id.
+    if (!itemData) {
+        req.flash("error", "Sorry, the requested vehicle could not be found.");
+        return res.redirect("/inv/");
+    }
+
+    const classificationList = await utilities.buildClassificationList(itemData.classification_id);
+    const vehicleName = `${itemData.inv_make} ${itemData.inv_model}`;
+
+    res.render("./inventory/edit-inventory", {
+        title: "Edit " + vehicleName,
+        nav,
+        classificationList: classificationList,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_description: itemData.inv_description,
+        inv_image: itemData.inv_image,
+        inv_thumbnail: itemData.inv_thumbnail,
+        inv_price: itemData.inv_price,
+        inv_miles: itemData.inv_miles,
+        inv_color: itemData.inv_color,
+        classification_id: itemData.classification_id
+    });
+};
+
+/* ***************************
+ *  Process EDITING an existing inventory Item
+ * ************************** */
+invCont.processEditInventory = async function (req, res, next) {
+
+};
+
 module.exports = invCont
