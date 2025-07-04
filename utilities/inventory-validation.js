@@ -85,13 +85,13 @@ validate.addInventoryRules = () => {
         body("inv_image")
             .trim()
             .notEmpty().withMessage("Please provide an image path.")
-            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_-]+\.(png|jpg|jpeg|webp)$/i)
+            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$/i)
             .withMessage("Image path must be a valid path like /images/vehicles/image.png."),
 
         body("inv_thumbnail")
             .trim()
             .notEmpty().withMessage("Please provide a thumbnail image path.")
-            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_-]+\.(png|jpg|jpeg|webp)$/i)
+            .matches(/^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$/i)
             .withMessage("Thumbnail path must be a valid path like /images/vehicles/tn-image.png."),
 
         body("inv_price")

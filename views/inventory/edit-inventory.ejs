@@ -16,7 +16,7 @@
     </p>
 
     <!-- This was changed from add-invetory -->
-    <form id="updateInventoryForm" action="/inv/update" method="POST">
+    <form id="updateForm" action="/inv/update" method="POST">
         <fieldset>
             <div>
                 <label for="classificationList">Classification:</label>
@@ -52,7 +52,7 @@
             <div>
                 <label for="inv_image">Image Path:</label>
                 <input type="text" id="inv_image" name="inv_image" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.\-]+\.(png|jpg|jpeg|webp)$"
                     title="Example: /images/vehicles/your-image.png"
                     value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>">
                 <small>Default: /images/vehicles/no-image.png</small>
@@ -61,7 +61,7 @@
             <div>
                 <label for="inv_thumbnail">Thumbnail Path:</label>
                 <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.\-]+\.(png|jpg|jpeg|webp)$"
                     title="Example: /images/vehicles/your-tn-image.png"
                     value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>">
                 <small>Default: /images/vehicles/no-image-tn.png</small>
@@ -91,8 +91,14 @@
                     value="<%= locals.inv_color || '' %>">
             </div>
 
-            <%# Finally, changed the button text to to clarify it being an update/edit%>
-            <button type="submit" class="form-button">Update Vehicle</button>
+            <%# Finally, changed the button text to to clarify it being an update/edit
+                Also, of note, the span wrapper is a CUSTOM MODIFICATION OF MY OWN deviating from the lesson, but
+                I think is a good QOL improvement that will have the title attribute for the tooltip, I did this because
+                mouse events do NOT fire when button is disabled, so I can't have a tooltip suggesting to make a change
+                without having an invisible wrapper %>
+            <span class="tooltip-wrapper" data-tooltip="Please make a change before trying to submit.">
+                <button type="submit" class="form-button" disabled>Update Vehicle</button>
+            </span>
 
             <%# This hidden input sends the inv_id with the form %>
             <input type="hidden" name="inv_id"
@@ -100,7 +106,11 @@
 
         </fieldset>
     </form>
+
     <div class="form-navigation">
         <a href="/inv/" class="go-back-button">Back to Management</a>
     </div>
 </div>
+
+<!-- Adding the inv-update button disable JS to load -->
+<script src="/js/inv-update.js"></script>

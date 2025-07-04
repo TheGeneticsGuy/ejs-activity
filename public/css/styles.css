@@ -903,7 +903,9 @@ footer {
 }
 
 .go-back-button:hover {
-    background-color: #5a6268;
+    background-color: #525658;
+    text-decoration: none;
+    color: white;
 }
 
 .existing-classifications-list {
@@ -1037,4 +1039,36 @@ footer {
   text-align: center;
   font-size: 2rem;
   color: red;
+}
+
+/* This is the tooltip or the edit-inventory submit button page */
+.tooltip-wrapper {
+  position: relative;
+  display: block;
+  cursor: not-allowed;
+}
+
+.tooltip-wrapper::after {
+  content: attr(data-tooltip); /* Get the txt */
+  position: absolute;
+  bottom: 100%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+  background-color: #333;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  white-space: nowrap;
+
+  /* Hide it*/
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+
+/* OnEnter (hover)*/
+.tooltip-wrapper:hover::after {
+  opacity: 1;
+  visibility: visible;
 }
