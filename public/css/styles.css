@@ -86,6 +86,7 @@ a:hover {
   color: #3B2525;
   border-radius: 4px;
   text-decoration: none;
+  margin: 0.1em;
 }
 
 #tools a:hover {
