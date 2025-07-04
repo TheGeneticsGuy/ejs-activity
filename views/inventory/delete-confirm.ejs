@@ -1,0 +1,52 @@
+<h1><%- title %></h1>
+
+<%- messages() %>
+
+<!-- No need to add server-side validation errors here as you will be directed to management view -->
+
+<div class="form-container">
+
+    <p class="form-instructions">
+        Please Confirm Deletion - This is permanent and cannot be undone!
+    </p>
+
+    <%# For posting to the /inv/delete route %>
+    <form id="deleteInventoryForm" action="/inv/delete" method="POST">
+        <fieldset>
+            <%# Note!! These CANNOT BE EDITED. Readonly for Confirmation only! %>
+            <div>
+                <label for="inv_make">Make:</label>
+                <input type="text" id="inv_make" name="inv_make" readonly
+                    value="<%= locals.inv_make %>">
+            </div>
+
+            <div>
+                <label for="inv_model">Model:</label>
+                <input type="text" id="inv_model" name="inv_model" readonly
+                    value="<%= locals.inv_model %>">
+            </div>
+
+            <div>
+                <label for="inv_year">Year:</label>
+                <input type="text" id="inv_year" name="inv_year" readonly
+                    value="<%= locals.inv_year %>">
+            </div>
+
+            <div>
+                <label for="inv_price">Price($):</label>
+                <input type="text" id="inv_price" name="inv_price" readonly
+                    value="<%= locals.inv_price %>">
+            </div>
+
+            <button type="submit" class="form-button">Delete Vehicle</button>
+
+            <%# Just like the edit-inventory, need to have this hidden value set to pass the inv_id for deletion %>
+            <input type="hidden" name="inv_id"
+            <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
+        </fieldset>
+    </form>
+
+    <div class="form-navigation">
+        <a href="/inv/" class="go-back-button">Back to Management</a>
+    </div>
+</div>

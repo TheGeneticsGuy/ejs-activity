@@ -61,11 +61,12 @@ router.get("/detail/:inventoryId",
 // GET - Edit an inventory item
 // Route: /inv/edit/#
 router.get("/edit/:inventoryId",
-    utilities.checkLogin,   // Need to ensure permission if editing
+    utilities.checkLogin,
     utilities.handleErrors(invController.buildEditInventoryView )
 );
 
 // POST - Process the updated Inventory item
+// Route: /inv/update
 router.post("/update",
     utilities.checkLogin,
     invValidate.addInventoryRules(),
@@ -73,5 +74,19 @@ router.post("/update",
     utilities.handleErrors(invController.updateInventory)
 );
 
+
+// GET - Build the delete confirmation view
+// Route: /inv/delete/:inventoryId
+router.get("/delete/:inventoryId",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.buildDeleteConfirmationView)
+);
+
+// POST - Process the delete request
+// Route: /inv/delete
+router.post("/delete",
+    utilities.checkLogin,
+    utilities.handleErrors(invController.processDelete)
+);
 
 module.exports = router;

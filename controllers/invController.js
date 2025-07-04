@@ -46,12 +46,12 @@ invCont.buildByInventoryId = async function (req, res, next) {
  * ************************** */
 invCont.buildManagementView = async function (req, res, next) {
     let nav = await utilities.getNav();
-    const classificationSelect = await utilities.buildClassificationList();
+    const classificationList = await utilities.buildClassificationList();
 
     res.render("./inventory/management", {
         title: "Inventory Management",
         nav,
-        classificationSelect,    // Need to pass this to the EJS file to be rendered
+        classificationList,    // Need to pass this to the EJS file to be rendered
         errors: null
     });
 };
@@ -165,11 +165,7 @@ invCont.processAddInventory = async function (req, res, next) {
     if (addResult && addResult.rowCount > 0) {
         req.flash("success", `The vehicle "${inv_make} ${inv_model}" was successfully added to inventory.`);
         // Redirecting to management view or render it
-        res.status(201).render("./inventory/management", {
-            title: "Vehicle Management",
-            nav,
-            errors: null,
-        });
+        res.redirect("/inv/");
     } else {
         // Failled to add to the DB
         req.flash("error", `Adding "${inv_make} ${inv_model}" failed. Please try again.`);
@@ -302,5 +298,42 @@ invCont.updateInventory = async function (req, res, next) {
     })
   }
 }
+
+/* ***************************
+ *  Build Delete Confirmation View
+ * ************************** */
+invCont.buildDeleteConfirmationView = async function (req, res, next) {
+    const inventory_id = parseInt(req.params.inventoryId);
+    let nav = await utilities.getNav();
+    const itemData = await invModel.getInventoryByInventoryId(inventory_id);
+    const itemName = `${itemData.inv_make} ${itemData.inv_model}`;
+
+    res.render("./inventory/delete-confirm", {
+        title: "Delete " + itemName,
+        nav,
+        errors: null,
+        inv_id: itemData.inv_id,
+        inv_make: itemData.inv_make,
+        inv_model: itemData.inv_model,
+        inv_year: itemData.inv_year,
+        inv_price: itemData.inv_price
+    });
+};
+
+/* ***************************
+ *  Process the Delete Request
+ * ************************** */
+invCont.processDelete = async function (req, res, next) {
+    const inv_id = parseInt(req.body.inv_id);
+    const deleteResult = await invModel.deleteInventoryItem(inv_id);
+
+    if (deleteResult) {
+        req.flash("notice", "The vehicle was successfully deleted from the inventory.");
+        res.redirect("/inv/");  // Redirect back to management view
+    } else {
+        req.flash("notice", "Unfortunately, the deletion failed.");
+        res.redirect(`/inv/delete/${inv_id}`);
+    }
+};
 
 module.exports = invCont
