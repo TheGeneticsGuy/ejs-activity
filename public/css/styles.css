@@ -1118,7 +1118,7 @@ footer {
     color: #0056b3;
 }
 
-.management-button {
+a.management-button {
     display: block;
     width: 80%;
     max-width: 400px;
@@ -1136,7 +1136,7 @@ footer {
     transition: background-color 0.1s ease, transform 0.1s ease;
 }
 
-.management-button:visited {
+a.management-button:visited {
   color:white;
 }
 
@@ -1160,4 +1160,66 @@ a.management-button:hover {
     background-color: #fff;
     outline-color: #4BD6CB;
     margin-bottom: 1em;
+}
+
+/* Additional Styling tweaks to my likeness */
+#inventoryDisplay .action-cell {
+    text-align: center;
+    vertical-align: middle;
+}
+
+#inventoryDisplay .modify-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+#inventoryDisplay .delete-link,
+#inventoryDisplay .modify-link {
+    display: inline-block;
+    width: 80%;
+    padding: 8px 0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 0.9em;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+#inventoryDisplay .modify-link {
+    background-color: #0b4f6c;
+    border: 1px solid #033163;
+    color: white;
+}
+
+#inventoryDisplay .delete-link {
+  background-color: #dc3545;
+  border: 1px solid #c82333;
+  color: white;
+}
+
+#inventoryDisplay .modify-link:hover {
+    background-color: #017bff;
+    border-color: #006ce0;
+    color: white;
+    text-decoration: none;
+}
+
+#inventoryDisplay .delete-link:hover {
+    background-color: #9b2430;
+    border-color: #bd2130;
+    color: white;
+    text-decoration: none;
+}
+
+#delete-confirm-button {
+  background-color: #dc3545;
+  border: 1px solid #c82333;
+  color: white;
+}
+
+#delete-confirm-button:hover {
+    background-color: #9b2430;
+    border-color: #bd2130;
+    color: white;
+    text-decoration: none;
 }
