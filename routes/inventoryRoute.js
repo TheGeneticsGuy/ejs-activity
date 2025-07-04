@@ -65,5 +65,13 @@ router.get("/edit/:inventoryId",
     utilities.handleErrors(invController.buildEditInventoryView )
 );
 
+// POST - Process the updated Inventory item
+router.post("/update",
+    utilities.checkLogin,
+    invValidate.addInventoryRules(),
+    invValidate.checkUpdateData,    // Similar to CheckInvetoryData, but modified for update/edit
+    utilities.handleErrors(invController.updateInventory)
+);
+
 
 module.exports = router;

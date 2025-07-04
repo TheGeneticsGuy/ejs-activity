@@ -91,12 +91,13 @@
                     value="<%= locals.inv_color || '' %>">
             </div>
 
-            <%# Another change from the add-inventory file. Hidden input to send the inv_id with the form %>
+            <%# Finally, changed the button text to to clarify it being an update/edit%>
+            <button type="submit" class="form-button">Update Vehicle</button>
+
+            <%# This hidden input sends the inv_id with the form %>
             <input type="hidden" name="inv_id"
             <% if(locals.inv_id) { %> value="<%= locals.inv_id %>" <% } %>>
 
-            <%# Finally, changed the button text to to clarify it being an update/edit%>
-            <button type="submit" class="form-button">Update Vehicle</button>
         </fieldset>
     </form>
     <div class="form-navigation">

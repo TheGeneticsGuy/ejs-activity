@@ -127,6 +127,7 @@ validate.checkInventoryData = async (req, res, next) => {
     if (!errors.isEmpty()) {
         let nav = await utilities.getNav();
         let classificationList = await utilities.buildClassificationList(classification_id);
+
         res.render("inventory/add-inventory", {
             title: "Add New Inventory Item",
             nav,
@@ -143,6 +144,46 @@ validate.checkInventoryData = async (req, res, next) => {
             inv_price,
             inv_miles,
             inv_color,
+        });
+        return;
+    }
+    next();
+};
+
+/* ******************************
+ * Update inventory data
+* ERRORS WILL BE DIRECTED BACK TO THE EDIT VIEW
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+    const {
+        classification_id, inv_make, inv_model, inv_year, inv_description,
+        inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, inv_id
+    } = req.body;
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        let classificationList = await utilities.buildClassificationList(classification_id);
+
+        res.render("inventory/edit-inventory", {
+            title: "Add New Inventory Item",
+            nav,
+            classificationList,
+            errors,
+
+            // Pass all form fields back for sticky form
+            classification_id,
+            inv_make,
+            inv_model,
+            inv_year,
+            inv_description,
+            inv_image,
+            inv_thumbnail,
+            inv_price,
+            inv_miles,
+            inv_color,
+            inv_id
         });
         return;
     }
