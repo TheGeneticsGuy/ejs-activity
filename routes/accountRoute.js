@@ -25,17 +25,35 @@ router.post( "/login",
 )
 
 // For Profile page  -  /account/profile
-router.get(
-    "/profile",
+router.get("/profile",
     utilities.checkLogin,
     utilities.handleErrors(accountController.buildProfileView)
 );
 
 // For Account Management View
-router.get(
-    "/",
+router.get("/",
     utilities.checkLogin,
     utilities.handleErrors(accountController.buildAccountManagementView)
+);
+
+// GET route to build the account update view
+router.get("/update/:accountId",
+    utilities.checkLogin,
+    utilities.handleErrors(accountController.buildUpdateAccountView)
+);
+
+// POST route to handle account info update
+router.post("/update",
+    utilities.checkLogin,
+    regValidate.updateAccountRules(),
+    utilities.handleErrors(accountController.updateAccountInfo)
+);
+
+// POST route to handle password change
+router.post("/change-password",
+    utilities.checkLogin,
+    regValidate.changePasswordRules(),
+    utilities.handleErrors(accountController.changePassword)
 );
 
 // Route for Logout

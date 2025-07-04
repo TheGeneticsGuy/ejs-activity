@@ -38,7 +38,7 @@ router.post(
 router.get(
     "/add-inventory",
     utilities.checkLogin,
-    utilities.checkAccountType,
+    // utilities.checkAccountType,
     utilities.handleErrors(invController.buildAddInventory)
 );
 

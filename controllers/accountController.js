@@ -174,12 +174,88 @@ async function logoutAccount(req, res, next) {
     if (req.session) {
         req.session.destroy(err => {
             if (err) {
-                console.error("Error destroying session:", err);
+                console.error("Error ending session:", err);
             }
-            return res.redirect('/'); // Redirect to homepage
+            return res.redirect('/'); // Back to homepage
         });
     } else {
         res.redirect('/');
+    }
+}
+
+/* ****************************************
+*  Build Account Update View
+* *************************************** */
+async function buildUpdateAccountView(req, res, next) {
+    let nav = await utilities.getNav();
+    const account_id = parseInt(req.params.accountId);
+    const accountData = await accountModel.getAccountById(account_id);
+
+    res.render("account/update", {
+        title: "Edit Account",
+        nav,
+        errors: null,
+        account_id: accountData.account_id,
+        account_firstname: accountData.account_firstname,
+        account_lastname: accountData.account_lastname,
+        account_email: accountData.account_email,
+    });
+}
+
+/* ****************************************
+*  Process Account Info Update
+* *************************************** */
+async function updateAccountInfo(req, res, next) {
+    let nav = await utilities.getNav();
+    const { account_id, account_firstname, account_lastname, account_email } = req.body;
+    const updateResult = await accountModel.updateAccount(
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email
+    );
+
+    if (updateResult) {
+        req.flash("notice", "Your account information has been successfully updated.");
+        res.redirect("/account/");
+    } else {
+        req.flash("notice", "Sorry, the update failed.");
+        res.status(501).render("account/update", {
+            title: "Edit Account",
+            nav,
+            errors: null,
+            account_id,
+            account_firstname,
+            account_lastname,
+            account_email,
+        });
+    }
+}
+
+/* ****************************************
+*  Process Password Change
+* *************************************** */
+async function changePassword(req, res, next) {
+    let nav = await utilities.getNav();
+    const { account_id, account_password } = req.body;
+
+    let hashedPassword;
+    try {
+        hashedPassword = await bcrypt.hashSync(account_password, 10);
+    } catch (error) {
+        req.flash("notice", "Unfortunately, there was an error processing the password change.");
+        return res.redirect(`/account/update/${account_id}`);
+    }
+
+    const updateResult = await accountModel.updatePassword(account_id, hashedPassword);
+
+    if (updateResult) {
+        req.flash("notice", "Your password has been successfully changed. Please log in again with the new password.");
+        res.clearCookie("jwt");
+        res.redirect("/account/login");
+    } else {
+        req.flash("notice", "Sorry, the password update failed.");
+        res.redirect(`/account/update/${account_id}`);
     }
 }
 
@@ -190,5 +266,8 @@ module.exports = {
     accountLogin,
     buildProfileView,
     buildAccountManagementView,
-    logoutAccount
+    logoutAccount,
+    buildUpdateAccountView,
+    updateAccountInfo,
+    changePassword
 };

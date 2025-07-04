@@ -11,46 +11,46 @@ validate.registrationRules = () => {
 return [
     // firstname is required and must be string
     body("account_firstname")
-    .trim()
-    .escape()
-    .notEmpty()
-    .withMessage("Please provide a first name.")
-    .isLength({ min: 1  , max: 40 })
-    .withMessage('First name cannot exceed 40 characters.'), // on error this message is sent.
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a first name.")
+      .isLength({ min: 1  , max: 40 })
+      .withMessage('First name cannot exceed 40 characters.'), // on error this message is sent.
 
     // lastname is required and must be string
     body("account_lastname")
-    .trim()
-    .escape()
-    .notEmpty()
-    .withMessage("Please provide a last name.")
-    .isLength({ min: 2 , max: 40})
-    .withMessage("Last name cannot exceed 40 characters."), // on error this message is sent.
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a last name.")
+      .isLength({ min: 2 , max: 40})
+      .withMessage("Last name cannot exceed 40 characters."), // on error this message is sent.
 
     // valid email is required and cannot already exist in the DB
     body("account_email")
-    .trim()
-    .isEmail()
-    .normalizeEmail() // refer to validator.js docs
-    .withMessage("A valid email is required.")
-    .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(account_email)
-        if (emailExists){
-        throw new Error("Email already exists. Please log in or use a different email")
-        }
+      .trim()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) => {
+          const emailExists = await accountModel.checkExistingEmail(account_email)
+          if (emailExists){
+          throw new Error("Email already exists. Please log in or use a different email")
+          }
     }),
 
     // password is required and must be strong password
     body("account_password")
-    .trim()
-    .notEmpty()
-    .withMessage("A password is required.")
-    .isStrongPassword({
-        minLength: 12,
-        minLowercase: 1,
-        minUppercase: 1,
-        minNumbers: 1,
-        minSymbols: 1,
+      .trim()
+      .notEmpty()
+      .withMessage("A password is required.")
+      .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
     })
     .withMessage("Password does not meet requirements."),
 ]
@@ -136,6 +136,56 @@ validate.checkLoginData = async (req, res, next) => {
     return;
   }
   next();
+};
+
+/*  **********************************
+*  Update Account Data Validation
+* ********************************* */
+validate.updateAccountRules = () => {
+  return [
+    body("account_firstname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a first name."),
+    body("account_lastname")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a last name."),
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required.")
+      .custom(async (account_email, { req }) => {
+          const account_id = req.body.account_id;
+          const account = await accountModel.getAccountByEmail(account_email);
+          if (account && account.account_id != account_id) {
+              throw new Error("Email already in use. Please use a different email.");
+          }
+      }),
+  ];
+};
+
+/*  **********************************
+*  Change Password Validation
+* ********************************* */
+validate.changePasswordRules = () => {
+  return [
+    body("account_password")
+      .trim()
+      .notEmpty()
+      .withMessage("A password is required.")
+      .isStrongPassword({
+          minLength: 12,
+          minLowercase: 1,
+          minUppercase: 1,
+          minNumbers: 1,
+          minSymbols: 1,
+      })
+      .withMessage("Password does not meet requirements."),
+  ];
 };
 
 module.exports = validate

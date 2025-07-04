@@ -1,8 +1,18 @@
 <h1><%- title %></h1>
 
-<div class="profile-container">
-    <p>Welcome back, <%- account_firstname %> - you have successfully logged in!</p>
+<%- messages() %>
 
-    <%# <p><a href="/account/update">Update Account Information</a></p> %>
-    <%# <p><a href="/account/logout">Logout</a></p> %>
+<h2>Welcome <%= locals.account_firstname %></h2>
+
+<div class="management-container">
+    <p><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></p>
+
+    <!-- Not showing for "Basic" account type -->
+    <% if (locals.account_type === 'Employee' || locals.account_type === 'Admin') { %>
+
+        <h3>Inventory Management</h3>
+        <p>Use the link below to manage the inventory.</p>
+        <p><a href="/inv/">Manage Inventory</a></p>
+
+    <% } %>
 </div>
