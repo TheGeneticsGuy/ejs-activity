@@ -165,26 +165,6 @@ async function buildAccountManagementView(req, res, next) {
 }
 
 /* ****************************************
-*  Process Logout
-* *************************************** */
-async function logoutAccount(req, res, next) {
-    res.clearCookie('jwt')
-    res.clearCookie('sessionId')
-    req.flash("notice", "You have been logged out successfully.");
-
-    if (req.session) {
-        req.session.destroy(err => {
-            if (err) {
-                console.error("Error ending session:", err);
-            }
-            return res.redirect('/'); // Back to homepage
-        });
-    } else {
-        res.redirect('/');
-    }
-}
-
-/* ****************************************
 *  Build Account Update View
 * *************************************** */
 async function buildUpdateAccountView(req, res, next) {
@@ -275,6 +255,26 @@ async function changePassword(req, res, next) {
     } else {
         req.flash("notice", "Sorry, the password update failed.");
         res.redirect(`/account/update/${account_id}`);
+    }
+}
+
+/* ****************************************
+*  Process Logout
+* *************************************** */
+async function logoutAccount(req, res, next) {
+    res.clearCookie('jwt')
+    res.clearCookie('sessionId')
+    req.flash("notice", "You have been logged out successfully.");
+
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                console.error("Error ending session:", err);
+            }
+            return res.redirect('/'); // Back to homepage
+        });
+    } else {
+        res.redirect('/');
     }
 }
 
