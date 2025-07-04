@@ -92,13 +92,16 @@
             </div>
 
             <%# Finally, changed the button text to to clarify it being an update/edit
-                Also, of note, the span wrapper is a CUSTOM MODIFICATION OF MY OWN deviating from the lesson, but
+                Also, of note, the div wrapper is a CUSTOM MODIFICATION OF MY OWN deviating from the lesson, but
                 I think is a good QOL improvement that will have the title attribute for the tooltip, I did this because
                 mouse events do NOT fire when button is disabled, so I can't have a tooltip suggesting to make a change
                 without having an invisible wrapper %>
-            <span class="tooltip-wrapper" data-tooltip="Please make a change before trying to submit.">
+            <div class="submit-button-container">
                 <button type="submit" class="form-button" disabled>Update Vehicle</button>
-            </span>
+                <span class="tooltip-text">Please make a change to enable this button.</span>
+            </div>
+
+
 
             <%# This hidden input sends the inv_id with the form %>
             <input type="hidden" name="inv_id"

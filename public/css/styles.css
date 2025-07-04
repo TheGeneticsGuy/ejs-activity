@@ -1042,33 +1042,40 @@ footer {
 }
 
 /* This is the tooltip or the edit-inventory submit button page */
-.tooltip-wrapper {
+.submit-button-container {
   position: relative;
   display: block;
-  cursor: not-allowed;
 }
 
-.tooltip-wrapper::after {
-  content: attr(data-tooltip); /* Get the txt */
-  position: absolute;
-  bottom: 100%;
-  transform: translateX(-50%);
-  margin-bottom: 5px;
+.tooltip-text {
   background-color: #333;
   color: #fff;
-  padding: 8px 12px;
+  text-align: center;
   border-radius: 4px;
+  padding: 8px 12px;
   font-size: 0.9em;
   white-space: nowrap;
-
-  /* Hide it*/
+  position: absolute;
+  z-index: 1; /* Keeps tooltip above it */
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 5px;
+  /* --- Hidden on load --- */
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* Only shows when OnEnter AND Disabled button*/
+.submit-button-container:hover button[disabled] + .tooltip-text,
+.submit-button-container:hover .tooltip-text:has(+ button[disabled]) {
+  opacity: 1;
+  visibility: visible;
 }
 
 /* OnEnter (hover)*/
-.tooltip-wrapper:hover::after {
+.button-container:hover button[disabled] + .tooltip-text {
   opacity: 1;
   visibility: visible;
 }
