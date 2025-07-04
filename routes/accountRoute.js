@@ -53,6 +53,7 @@ router.post("/update",
 router.post("/change-password",
     utilities.checkLogin,
     regValidate.changePasswordRules(),
+    regValidate.checkPasswordData,
     utilities.handleErrors(accountController.changePassword)
 );
 

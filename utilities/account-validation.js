@@ -190,4 +190,53 @@ validate.changePasswordRules = () => {
   ];
 };
 
+/* ******************************
+ * Check account update data
+ * ***************************** */
+validate.checkUpdateData = async (req, res, next) => {
+    const { account_id, account_firstname, account_lastname, account_email } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+
+        res.render("account/update", {
+            title: "Edit Account",
+            nav,
+            errors,
+            account_id,
+            account_firstname,
+            account_lastname,
+            account_email,
+        });
+        return;
+    }
+    next();
+};
+
+/* ******************************
+ * Check password data
+ * ***************************** */
+validate.checkPasswordData = async (req, res, next) => {
+    const { account_id } = req.body;
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+        let nav = await utilities.getNav();
+        const accountData = await accountModel.getAccountById(account_id);
+
+        res.render("account/update", {
+            title: "Edit Account",
+            nav,
+            errors,
+            account_id,
+            account_firstname: accountData.account_firstname,
+            account_lastname: accountData.account_lastname,
+            account_email: accountData.account_email,
+        });
+        return;
+    }
+    next();
+};
+
 module.exports = validate
