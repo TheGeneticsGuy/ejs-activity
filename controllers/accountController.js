@@ -169,6 +169,7 @@ async function buildAccountManagementView(req, res, next) {
 * *************************************** */
 async function logoutAccount(req, res, next) {
     res.clearCookie('jwt')
+    res.clearCookie('sessionId')
     req.flash("notice", "You have been logged out successfully.");
 
     if (req.session) {
