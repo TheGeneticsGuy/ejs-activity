@@ -1081,7 +1081,6 @@ footer {
 
 /* Account Management View */
 .management-container {
-    padding: 2em;
     margin-top: 1em;
     background-color: #f8f9fa;
     border: 1px solid #dee2e6;
@@ -1089,12 +1088,20 @@ footer {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    text-align: center;
+}
+
+#account-welcome {
+  text-align: center;
 }
 
 .management-container h3 {
     margin-top: 1.5em;
-    border-top: 1px solid #dee2e6;
     padding-top: 1em;
+}
+
+#inv-management-txt {
+  border-top: 1px solid #dee2e6;
 }
 
 .management-container p {
@@ -1109,6 +1116,34 @@ footer {
 
 .management-container a:hover {
     color: #0056b3;
+}
+
+.management-button {
+    display: block;
+    width: 80%;
+    max-width: 400px;
+    margin: 1em auto;
+    padding: 0.9em;
+    background-color: #0b4f6c;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.1s ease, transform 0.1s ease;
+}
+
+.management-button:visited {
+  color:white;
+}
+
+a.management-button:hover {
+    background-color: #017bff;
+    text-decoration: none;
+    color: white;
 }
 
 /* This new, more general rule will style the inputs in the update view */
