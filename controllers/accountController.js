@@ -44,7 +44,7 @@ async function registerAccount(req, res) {
   let hashedPassword
   try {
     // regular password and cost (salt is generated automatically)
-    hashedPassword = await bcrypt.hashSync(account_password, 10)
+    hashedPassword = bcrypt.hashSync(account_password, 10)
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
@@ -208,6 +208,7 @@ async function buildUpdateAccountView(req, res, next) {
 async function updateAccountInfo(req, res, next) {
     let nav = await utilities.getNav();
     const { account_id, account_firstname, account_lastname, account_email } = req.body;
+
     const updateResult = await accountModel.updateAccount(
         account_id,
         account_firstname,
@@ -216,8 +217,25 @@ async function updateAccountInfo(req, res, next) {
     );
 
     if (updateResult) {
+        try {
+            // Grab the updated data
+            const updatedAccountData = await accountModel.getAccountById(account_id);
+            // Re-sign-in to get new token
+            const accessToken = jwt.sign(updatedAccountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
+
+            if (process.env.NODE_ENV === 'development') {
+                res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 });
+            } else {
+                res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 });
+            }
+        } catch (error) {
+            // Just in case the token signing fails for some reason, let's just keep going since technically it's just visual QOL.
+            console.error("Error re-signing token after update:", error);
+        }
+
         req.flash("notice", "Your account information has been successfully updated.");
         res.redirect("/account/");
+
     } else {
         req.flash("notice", "Sorry, the update failed.");
         res.status(501).render("account/update", {
@@ -230,7 +248,7 @@ async function updateAccountInfo(req, res, next) {
             account_email,
         });
     }
-}
+  }
 
 /* ****************************************
 *  Process Password Change
@@ -241,7 +259,7 @@ async function changePassword(req, res, next) {
 
     let hashedPassword;
     try {
-        hashedPassword = await bcrypt.hashSync(account_password, 10);
+        hashedPassword = bcrypt.hashSync(account_password, 10);
     } catch (error) {
         req.flash("notice", "Unfortunately, there was an error processing the password change.");
         return res.redirect(`/account/update/${account_id}`);

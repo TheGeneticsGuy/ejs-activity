@@ -158,6 +158,7 @@ validate.updateAccountRules = () => {
       .isEmail()
       .normalizeEmail()
       .withMessage("A valid email is required.")
+
       .custom(async (account_email, { req }) => {
           const account_id = req.body.account_id;
           const account = await accountModel.getAccountByEmail(account_email);
@@ -165,6 +166,7 @@ validate.updateAccountRules = () => {
               throw new Error("Email already in use. Please use a different email.");
           }
       }),
+
   ];
 };
 
