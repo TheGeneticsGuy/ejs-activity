@@ -7,7 +7,7 @@ const invValidate = require('../utilities/inventory-validation');
 
 router.get(
     "/",
-    // utilities.checkLogin,
+    utilities.checkLogin,
     utilities.handleErrors(invController.buildManagementView)
 );
 
@@ -21,6 +21,7 @@ router.get(
 router.get(
     "/add-classification",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildAddClassification)
 );
 
@@ -28,6 +29,7 @@ router.get(
 router.post(
     "/add-classification",
     utilities.checkLogin,
+    utilities.checkAccountType,
     invValidate.addClassificationRules(),
     invValidate.checkClassificationData,
     utilities.handleErrors(invController.processAddClassification)
@@ -36,6 +38,7 @@ router.post(
 router.get(
     "/add-inventory",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildAddInventory)
 );
 
@@ -43,6 +46,7 @@ router.get(
 router.post(
     "/add-inventory",
     utilities.checkLogin,
+    utilities.checkAccountType,
     invValidate.addInventoryRules(),
     invValidate.checkInventoryData,
     utilities.handleErrors(invController.processAddInventory)
@@ -62,6 +66,7 @@ router.get("/detail/:inventoryId",
 // Route: /inv/edit/#
 router.get("/edit/:inventoryId",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildEditInventoryView )
 );
 
@@ -69,6 +74,7 @@ router.get("/edit/:inventoryId",
 // Route: /inv/update
 router.post("/update",
     utilities.checkLogin,
+    utilities.checkAccountType,
     invValidate.addInventoryRules(),
     invValidate.checkUpdateData,    // Similar to CheckInvetoryData, but modified for update/edit
     utilities.handleErrors(invController.updateInventory)
@@ -79,6 +85,7 @@ router.post("/update",
 // Route: /inv/delete/:inventoryId
 router.get("/delete/:inventoryId",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildDeleteConfirmationView)
 );
 
@@ -86,6 +93,7 @@ router.get("/delete/:inventoryId",
 // Route: /inv/delete
 router.post("/delete",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.processDelete)
 );
 
