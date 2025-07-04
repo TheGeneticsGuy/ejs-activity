@@ -8,6 +8,7 @@ const invValidate = require('../utilities/inventory-validation');
 router.get(
     "/",
     utilities.checkLogin,
+    utilities.checkAccountType,
     utilities.handleErrors(invController.buildManagementView)
 );
 
