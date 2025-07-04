@@ -51,7 +51,7 @@
             <div>
                 <label for="inv_image">Image Path:</label>
                 <input type="text" id="inv_image" name="inv_image" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$"
                     title="Example: /images/vehicles/your-image.png"
                     value="<%= locals.inv_image || '/images/vehicles/no-image.png' %>">
                 <small>Default: /images/vehicles/no-image.png</small>
@@ -60,7 +60,7 @@
             <div>
                 <label for="inv_thumbnail">Thumbnail Path:</label>
                 <input type="text" id="inv_thumbnail" name="inv_thumbnail" required
-                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+$"
+                    pattern="^\/?images\/vehicles\/[a-zA-Z0-9_.-]+\.(png|jpg|jpeg|webp)$"
                     title="Example: /images/vehicles/your-tn-image.png"
                     value="<%= locals.inv_thumbnail || '/images/vehicles/no-image-tn.png' %>">
                 <small>Default: /images/vehicles/no-image-tn.png</small>
