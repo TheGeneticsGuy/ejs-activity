@@ -1223,3 +1223,197 @@ a.management-button:hover {
     color: white;
     text-decoration: none;
 }
+
+/* New Message System*/
+.message-controls {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.unread-count {
+    text-align: center;
+    font-size: 1.1em;
+    margin-bottom: 1.5em;
+    background-color: #e9ecef;
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+.unread-bubble {
+    background-color: #dc3545;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 7px;
+    font-size: 0.8em;
+    vertical-align: top;
+    margin-left: 4px;
+}
+
+#message-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1em;
+}
+
+#message-table th,
+#message-table td {
+    border: 1px solid #dee2e6;
+    padding: 0.75em;
+    text-align: left;
+    vertical-align: middle;
+}
+
+#message-table th {
+    background-color: #0b4f6c;
+    color: white;
+}
+
+#message-table tr.unread-message {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+#message-table tr:hover {
+    background-color: #e2e6ea;
+}
+
+.message-actions {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.message-actions form {
+    margin: 0;
+    display: flex;
+}
+
+.message-actions .action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    border: none;
+}
+
+.message-actions .action-btn.delete { background-color: #dc3545; }
+.message-actions .action-btn.delete:hover { background-color: #c82333; color: white; text-decoration: none; }
+
+.message-actions .action-btn.archive { background-color: #6c757d; }
+.message-actions .action-btn.archive:hover { background-color: #5a6268; }
+
+
+#message_to {
+    width: 100%;
+    padding: 0.75em 1em;
+    border: 1px solid #ced4da;
+    border-radius: 0.3rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #495057;
+    background-color: #fff;
+    outline-color: #4BD6CB;
+    margin-bottom: 1em;
+}
+
+.message-view {
+    padding: 1.5em;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+}
+.message-header p { margin: 0.5em 0; }
+.message-body { padding: 1em 0; line-height: 1.6; }
+
+.message-view .message-controls .management-button,
+.message-view .message-controls .delete-button {
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 0.7em 1.2em;
+}
+.message-view .message-controls .delete-button {
+    background-color: #dc3545;
+    border-color: #c82333;
+    color: white;
+}
+.message-view .message-controls .delete-button:hover {
+    background-color: #c82333;
+}
+
+
+.delete-confirmation {
+    text-align: center;
+    padding: 2em;
+}
+
+.message-summary {
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 1em;
+    margin: 2em auto;
+    max-width: 500px;
+    text-align: left;
+}
+
+.confirmation-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+    align-items: center;
+}
+
+.confirmation-actions .form-button,
+.confirmation-actions .del-cancel-button {
+    padding: 0.8em 1.5em;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    text-decoration: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap; /* Preventing "No, Cancel" from wrapping as it was messing my height on small wdith*/
+    transition: background-color 0.2s ease;
+}
+
+.del-cancel-button {
+  margin-top: 1.70rem;
+}
+
+.confirmation-actions #delete-msg-confirm-button {
+  background-color: #dc3545;
+}
+.confirmation-actions #delete-msg-confirm-button:hover {
+    background-color: #c82333;
+}
+
+.confirmation-actions .del-cancel-button {
+    background-color: #6c757d;
+}
+.confirmation-actions .del-cancel-button:hover {
+    background-color: #5a6268;
+    color: white;
+    text-decoration: none;
+}
+
+#message-table td a:hover,
+#message-table td a:focus {
+    text-decoration: underline;
+}
+
+#msg-subject-grid a {
+  color: rgb(11, 0, 158);
+  text-decoration: none;
+  font-weight: 600;
+}

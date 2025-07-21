@@ -8,6 +8,7 @@ const app = express()
 const staticRoutes = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const accountRoute = require("./routes/accountRoute")
+const messageRoute = require("./routes/messageRoute")
 const baseController = require("./controllers/baseController")
 const utilities = require("./utilities")
 const session = require("express-session")
@@ -58,7 +59,7 @@ app.set("layout", "./layouts/layout") // not at views root
 /* ***********************
  * Routes
  *************************/
-app.use(staticRoutes)
+app.use(staticRoutes);
 
 // Index route
 app.get("/", utilities.handleErrors(baseController.buildHome));
@@ -66,6 +67,9 @@ app.use("/inv", inventoryRoute);
 
 // Account Rotes
 app.use("/account", accountRoute);
+
+// Message Routes (Enahnced final feature!)
+app.use("/messages", messageRoute);
 
 
 // 500 handler for testing

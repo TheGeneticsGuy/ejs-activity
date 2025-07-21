@@ -8,6 +8,9 @@
     <h3>Account Management</h3>
     <a class="management-button" href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a>
 
+    <!-- Message Link -->
+    <a class="management-button" href="/messages">My Messages</a>
+
     <!-- Not showing for "Basic" account type -->
     <% if (locals.account_type === 'Employee' || locals.account_type === 'Admin') { %>
 

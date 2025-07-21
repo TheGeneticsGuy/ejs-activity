@@ -1,6 +1,8 @@
 const invModel = require("../models/inventory-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
+const messageModel = require("../models/message-model");
+
 require("dotenv").config()
 
 /* ************************
@@ -169,6 +171,32 @@ Util.checkAccountType = (req, res, next) => {
     }
 };
 
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+    if (req.cookies.jwt) {
+        jwt.verify(
+            req.cookies.jwt,
+            process.env.ACCESS_TOKEN_SECRET,
+            async function (err, accountData) { // Make this function async
+                if (err) {
+                    req.flash("Please log in")
+                    res.clearCookie("jwt")
+                    return res.redirect("/account/login")
+                }
+                res.locals.accountData = accountData;
+                res.locals.loggedin = 1;
+                // ADDED: Get unread message count
+                const unreadCount = await messageModel.getUnreadMessageCount(accountData.account_id);
+                res.locals.unreadMessages = unreadCount;
+                // END ADDITION
+                next();
+            })
+    } else {
+        next();
+    }
+}
 
 /* ****************************************
  * Middleware For Handling Errors
@@ -177,4 +205,79 @@ Util.checkAccountType = (req, res, next) => {
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
-module.exports = Util
+
+// NEW MESSAGE FEATURE ADDED FINAL PROJECT
+
+/* **************************************
+* Build the message list view HTML
+* ************************************ */
+Util.buildMessageGrid = async function (data, isArchive = false) {
+    let grid = '<table id="message-table">';
+    if (data.length > 0) {
+        grid += '<thead><tr><th>Subject</th><th>From</th><th>Date</th><th>Read</th><th>Actions</th></tr></thead>';
+        grid += '<tbody>';
+        data.forEach(message => {
+            const readStatus = message.message_read ? 'read-message' : 'unread-message';
+            grid += `<tr class="${readStatus}">`;
+            grid += `<td id=msg-subject-grid><a href="/messages/read/${message.message_id}">${message.message_subject}</a></td>`;
+            grid += `<td>${message.account_firstname} ${message.account_lastname}</td>`;
+            grid += `<td>${new Date(message.message_created).toLocaleString()}</td>`;
+            grid += `<td>${message.message_read ? 'Yes' : 'No'}</td>`;
+            grid += `<td class="message-actions">
+                        <a href="/messages/delete/${message.message_id}" class="action-btn delete">Delete</a>`;
+            if (!isArchive) {
+                 grid += `<form action="/messages/archive/${message.message_id}" method="post">
+                             <button type="submit" class="action-btn archive">Archive</button>
+                          </form>`;
+            }
+            grid += `</td></tr>`;
+        });
+        grid += '</tbody>';
+    } else {
+        grid += '<tr><td colspan="5" class="notice">You have no messages in this view.</td></tr>';
+    }
+    grid += '</table>';
+    return grid;
+};
+
+/* **************************************
+* Build the single message detail view
+* ************************************ */
+Util.buildMessageDetailView = async function (message) {
+    let detailView = `
+        <div class="message-header">
+            <p><strong>From:</strong> ${message.account_firstname} ${message.account_lastname}</p>
+            <p><strong>Sent:</strong> ${new Date(message.message_created).toLocaleString()}</p>
+            <p><strong>Subject:</strong> ${message.message_subject}</p>
+        </div>
+        <hr>
+        <div class="message-body">
+            <p>${message.message_body.replace(/\n/g, '<br>')}</p>
+        </div>
+        <hr>
+        <div class="message-controls">
+            <a href="/messages/reply/${message.message_id}" class="management-button">Reply</a>
+            <a href="/messages/delete/${message.message_id}" class="form-button delete-button">Delete</a>
+        </div>
+    `;
+    return detailView;
+};
+
+/* ****************************************************
+* Build Recipient Select List for New Message Form
+* **************************************************** */
+Util.buildRecipientList = async function (recipients, selected_id = null) {
+    let list = `<select name="message_to" id="message_to" required>`;
+    list += "<option value=''>Choose a Recipient</option>";
+    recipients.forEach((recipient) => {
+        list += `<option value="${recipient.account_id}"`;
+        if (selected_id != null && recipient.account_id == selected_id) {
+            list += " selected";
+        }
+        list += `>${recipient.account_firstname} ${recipient.account_lastname}</option>`;
+    });
+    list += "</select>";
+    return list;
+};
+
+module.exports = Util;

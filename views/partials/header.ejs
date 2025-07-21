@@ -8,6 +8,13 @@
             <a href="/account/" title="View your profile">
                 Welcome <%= locals.accountData.account_firstname %>
             </a>
+            <%# Add the message indicator %>
+            <a href="/messages" title="View your messages">
+                Inbox
+                <% if (locals.unreadMessages > 0) { %>
+                    <span class="unread-bubble"><%= locals.unreadMessages %></span>
+                <% } %>
+            </a>
             <a href="/account/logout" title="Click to log out">Logout</a>
         <% } else { %>
             <a title="Click to log in" href="/account/login">My Account</a>

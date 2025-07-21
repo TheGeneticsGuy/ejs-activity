@@ -1,0 +1,26 @@
+<!-- Note, I created this since I can't easily make a non-hidable pop-up window in a browser -->
+
+<h1>Confirm Message Deletion</h1>
+<%- messages() %>
+
+<div class="form-container delete-confirmation">
+    <h2>Are you sure you want to permanently delete this message?</h2>
+
+    <div class="message-summary">
+        <p><strong>From:</strong> <%= message.account_firstname %> <%= message.account_lastname %></p>
+        <p><strong>Subject:</strong> <%= message.message_subject %></p>
+        <p><strong>Date:</strong> <%= new Date(message.message_created).toLocaleString() %></p>
+    </div>
+
+    <form id="deleteConfirmForm" action="/messages/delete" method="post">
+        <fieldset>
+            <%# This hidden input is crucial to tell the server which message to delete %>
+            <input type="hidden" name="message_id" value="<%= message.message_id %>">
+
+            <div class="confirmation-actions">
+                <button type="submit" id="delete-msg-confirm-button" class="form-button">Yes, Delete Message</button>
+                <a href="/messages" class="del-cancel-button">No, Cancel</a>
+            </div>
+        </fieldset>
+    </form>
+</div>
