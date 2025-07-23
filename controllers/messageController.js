@@ -12,7 +12,7 @@ messageCont.buildInbox = async function (req, res, next) {
     const messages = await messageModel.getMessagesByAccountId(account_id);
     const messageGrid = await utilities.buildMessageGrid(messages);
     const unreadCount = await messageModel.getUnreadMessageCount(account_id);
-
+    
     res.render("message/inbox", {
         title: "My Inbox",
         nav,
